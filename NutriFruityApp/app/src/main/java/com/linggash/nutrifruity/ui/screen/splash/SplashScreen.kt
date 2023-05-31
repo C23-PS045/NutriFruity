@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.navigation.Screen
-import com.linggash.nutrifruity.ui.theme.orangePrimary
+import com.linggash.nutrifruity.ui.theme.OrangePrimary
 import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -41,7 +41,7 @@ fun Splash(
 ){
     Box(
         modifier = modifier
-            .background(orangePrimary)
+            .background(OrangePrimary)
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ){
