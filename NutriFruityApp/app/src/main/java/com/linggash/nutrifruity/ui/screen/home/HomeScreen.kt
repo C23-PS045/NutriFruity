@@ -42,150 +42,116 @@ import com.linggash.nutrifruity.ui.theme.RedPrimary
 import com.linggash.nutrifruity.ui.theme.RedSecondary
 import com.linggash.nutrifruity.ui.theme.SpacingStandard
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController,
 ){
     val spacing = SpacingStandard
-    Scaffold(
-        topBar = { TopBar(modifier) },
-        containerColor = GrayBackground
-    ) { innerPadding ->
-        Column(
-            modifier = modifier
-                .padding(innerPadding)
-                .padding(horizontal = spacing)
-                .padding(bottom = spacing)
-                .fillMaxWidth()
-        ){
-            CardComponent(
-                borderColor = GreenSecondary,
-                cardColor = GreenPrimary,
-                modifier = modifier.weight(3f)
-            ){
-                Column(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.extraLarge)
-                        .padding(horizontal = spacing)
-                        .padding(top = spacing)
-                ) {
-                    Text(
-                        text = stringResource(R.string.kamera_buah),
-                        fontFamily = PetitCochon,
-                        color = BrownText,
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Start
-                    )
-                    Text(
-                        text = stringResource(R.string.ayo_pindai_buah),
-                        fontFamily = PetitCochon,
-                        color = BrownText,
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Start
-                    )
-                }
-            }
-            Spacer(modifier = modifier.height(spacing))
-            Text(
-                text = stringResource(R.string.lainnya),
-                fontFamily = PetitCochon,
-                color = BrownText,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Start
-            )
-            Spacer(modifier = modifier.height(spacing))
-            Row(
-                modifier = modifier
-                    .weight(2.2f)
-                    .fillMaxWidth()
-            ) {
-                Column(
-                    modifier = modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                )
-                {
-                    CardComponent(
-                        borderColor = RedSecondary,
-                        cardColor = RedPrimary,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                            .clickable {
-                                navController.navigate(Screen.FruitList.route)
-                            }
-                    ){
-
-                    }
-                    Spacer(modifier = modifier.height(spacing))
-                    Text(
-                        text = stringResource(R.string.daftar_buah),
-                        fontFamily = PetitCochon,
-                        color = BrownText,
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = modifier.fillMaxWidth()
-                    )
-                }
-                Spacer(modifier = modifier.width(spacing))
-                Column(
-                    modifier = modifier
-                        .weight(1f)
-                        .fillMaxHeight()
-                        .fillMaxWidth()
-                )
-                {
-                    CardComponent(
-                        borderColor = CreamSecondary,
-                        cardColor = CreamPrimary,
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .weight(1f)
-                    ){
-
-                    }
-                    Spacer(modifier = modifier.height(spacing))
-                    Text(
-                        text = stringResource(R.string.tebak_buah),
-                        fontFamily = PetitCochon,
-                        color = BrownText,
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                        modifier = modifier.fillMaxWidth()
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun TopBar(
-    modifier: Modifier
-) {
-    Box(
+    Column(
         modifier = modifier
-            .padding(25.dp)
+            .padding(horizontal = spacing)
+            .padding(bottom = spacing)
+            .fillMaxWidth()
     ){
         CardComponent(
-            borderColor = OrangeSecondary,
-            borderSize = 5.dp,
-            cardColor = OrangePrimary,
-            modifier = modifier.fillMaxWidth(),
-            cardShape = CircleShape
+            borderColor = GreenSecondary,
+            cardColor = GreenPrimary,
+            modifier = modifier.weight(3f)
+        ){
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .clip(MaterialTheme.shapes.extraLarge)
+                    .padding(horizontal = spacing)
+                    .padding(top = spacing)
+            ) {
+                Text(
+                    text = stringResource(R.string.kamera_buah),
+                    fontFamily = PetitCochon,
+                    color = BrownText,
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Start
+                )
+                Text(
+                    text = stringResource(R.string.ayo_pindai_buah),
+                    fontFamily = PetitCochon,
+                    color = BrownText,
+                    fontSize = 16.sp,
+                    textAlign = TextAlign.Start
+                )
+            }
+        }
+        Spacer(modifier = modifier.height(spacing))
+        Text(
+            text = stringResource(R.string.lainnya),
+            fontFamily = PetitCochon,
+            color = BrownText,
+            fontSize = 24.sp,
+            textAlign = TextAlign.Start
+        )
+        Spacer(modifier = modifier.height(spacing))
+        Row(
+            modifier = modifier
+                .weight(2.2f)
+                .fillMaxWidth()
         ) {
-            Text(
-                text = stringResource(R.string.nutrifruity),
-                color = Color.White,
-                fontFamily = PetitCochon,
-                fontSize = 48.sp,
-                textAlign = TextAlign.Center,
-                modifier = modifier.fillMaxWidth()
+            Column(
+                modifier = modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .fillMaxWidth()
             )
+            {
+                CardComponent(
+                    borderColor = RedSecondary,
+                    cardColor = RedPrimary,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                        .clickable {
+                            navController.navigate(Screen.FruitList.route)
+                        }
+                ){
+
+                }
+                Spacer(modifier = modifier.height(spacing))
+                Text(
+                    text = stringResource(R.string.daftar_buah),
+                    fontFamily = PetitCochon,
+                    color = BrownText,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = modifier.fillMaxWidth()
+                )
+            }
+            Spacer(modifier = modifier.width(spacing))
+            Column(
+                modifier = modifier
+                    .weight(1f)
+                    .fillMaxHeight()
+                    .fillMaxWidth()
+            )
+            {
+                CardComponent(
+                    borderColor = CreamSecondary,
+                    cardColor = CreamPrimary,
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .weight(1f)
+                ){
+
+                }
+                Spacer(modifier = modifier.height(spacing))
+                Text(
+                    text = stringResource(R.string.tebak_buah),
+                    fontFamily = PetitCochon,
+                    color = BrownText,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                    modifier = modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }

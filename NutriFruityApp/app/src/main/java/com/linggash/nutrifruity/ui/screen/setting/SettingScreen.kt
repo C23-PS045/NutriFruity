@@ -35,55 +35,22 @@ fun SettingScreen(
     modifier: Modifier = Modifier
 ) {
     val spacing = SpacingStandard
-    Scaffold(
-        containerColor = GrayBackground,
-        topBar = { TopBar(modifier) }
-    ) { innerPadding ->
-        Column(
-            modifier.padding(innerPadding)
-                .padding(horizontal = spacing)
+    Column(
+        modifier.padding(horizontal = spacing)
+    ) {
+        Card(
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            shape = MaterialTheme.shapes.large,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(spacing),
         ) {
-            Card(
-                colors = CardDefaults.cardColors(containerColor = Color.White),
-                shape = MaterialTheme.shapes.large,
-                modifier = modifier
-                    .fillMaxWidth()
-                    .padding(spacing),
+            Column(
+                modifier.padding(spacing)
             ) {
-                Column(
-                    modifier.padding(spacing)
-                ) {
-                    SettingItem(text = "MUSIK")
-                    SettingItem(text = "SUARA")
-                }
+                SettingItem(text = "MUSIK")
+                SettingItem(text = "SUARA")
             }
-        }
-    }
-}
-
-@Composable
-fun TopBar(
-    modifier: Modifier
-) {
-    Box(
-        modifier = modifier
-            .padding(25.dp)
-    ){
-        CardComponent(
-            borderColor = OrangeSecondary,
-            borderSize = 5.dp,
-            cardColor = OrangePrimary,
-            modifier = modifier.fillMaxWidth(),
-            cardShape = CircleShape
-        ) {
-            Text(
-                text = stringResource(R.string.pengaturan),
-                color = Color.White,
-                fontFamily = PetitCochon,
-                fontSize = 48.sp,
-                textAlign = TextAlign.Center,
-                modifier = modifier.fillMaxWidth()
-            )
         }
     }
 }
