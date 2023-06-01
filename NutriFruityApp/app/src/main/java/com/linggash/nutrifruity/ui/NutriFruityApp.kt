@@ -8,6 +8,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,8 +25,10 @@ import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.navigation.NavigationItem
 import com.linggash.nutrifruity.ui.navigation.Screen
 import com.linggash.nutrifruity.ui.screen.home.HomeScreen
+import com.linggash.nutrifruity.ui.screen.list.FruitListScreen
 import com.linggash.nutrifruity.ui.screen.setting.SettingScreen
 import com.linggash.nutrifruity.ui.screen.splash.SplashScreen
+import com.linggash.nutrifruity.ui.theme.OrangePrimary
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,10 +55,13 @@ fun NutriFruityApp(
                 SplashScreen(navController = navController)
             }
             composable(Screen.Home.route) {
-                HomeScreen()
+                HomeScreen(navController = navController)
             }
             composable(Screen.Setting.route) {
                 SettingScreen()
+            }
+            composable(Screen.FruitList.route) {
+                FruitListScreen(navController = navController)
             }
         }
     }
@@ -94,6 +100,10 @@ private fun BottomBar(
                             contentDescription = items.title
                         )
                     },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = OrangePrimary,
+                        indicatorColor = Color.White
+                    ),
                     selected = currentRoute == items.screen.route,
                     onClick = {
                         navController.navigate(items.screen.route) {

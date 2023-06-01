@@ -1,5 +1,6 @@
 package com.linggash.nutrifruity.ui.screen.home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,11 +24,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.component.CardComponent
+import com.linggash.nutrifruity.ui.navigation.Screen
 import com.linggash.nutrifruity.ui.theme.BrownText
 import com.linggash.nutrifruity.ui.theme.CreamPrimary
 import com.linggash.nutrifruity.ui.theme.CreamSecondary
+import com.linggash.nutrifruity.ui.theme.GrayBackground
 import com.linggash.nutrifruity.ui.theme.GreenPrimary
 import com.linggash.nutrifruity.ui.theme.GreenSecondary
 import com.linggash.nutrifruity.ui.theme.OrangePrimary
@@ -40,11 +45,13 @@ import com.linggash.nutrifruity.ui.theme.SpacingStandard
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController,
 ){
     val spacing = SpacingStandard
     Scaffold(
-        topBar = { TopBar(modifier) }
+        topBar = { TopBar(modifier) },
+        containerColor = GrayBackground
     ) { innerPadding ->
         Column(
             modifier = modifier
@@ -108,6 +115,9 @@ fun HomeScreen(
                         modifier = modifier
                             .fillMaxWidth()
                             .weight(1f)
+                            .clickable {
+                                navController.navigate(Screen.FruitList.route)
+                            }
                     ){
 
                     }
@@ -185,5 +195,5 @@ fun TopBar(
     showBackground = true
 )
 private fun HomePreview(){
-    HomeScreen()
+    HomeScreen(navController = rememberNavController())
 }
