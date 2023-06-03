@@ -1,6 +1,5 @@
 package com.linggash.nutrifruity.ui.component
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -9,12 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.theme.BrownText
 import com.linggash.nutrifruity.ui.theme.GreenPrimary
@@ -29,7 +27,7 @@ fun FruitItem(
     borderColor: Color,
     cardColor: Color,
     name: String,
-    image: Painter
+    image: String
 ){
     CardComponent(
         borderColor = borderColor,
@@ -46,8 +44,8 @@ fun FruitItem(
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
             )
-            Image(
-                painter = image,
+            AsyncImage(
+                model = image,
                 contentDescription = name,
                 modifier = modifier
                     .size(134.dp)
@@ -65,6 +63,6 @@ fun FruitItemPreview(){
         borderColor = GreenSecondary,
         cardColor = GreenPrimary,
         name = "Logo",
-        image = painterResource(R.drawable.splash_logo)
+        image = "https://storage.googleapis.com/image-nutrifruity/1.png"
     )
 }

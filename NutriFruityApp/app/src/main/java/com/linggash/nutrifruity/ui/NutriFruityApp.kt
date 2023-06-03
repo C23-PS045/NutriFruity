@@ -22,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -34,6 +35,7 @@ import com.linggash.nutrifruity.ui.navigation.NavigationItem
 import com.linggash.nutrifruity.ui.navigation.Screen
 import com.linggash.nutrifruity.ui.screen.home.HomeScreen
 import com.linggash.nutrifruity.ui.screen.list.FruitListScreen
+import com.linggash.nutrifruity.ui.screen.list.FruitListViewModel
 import com.linggash.nutrifruity.ui.screen.setting.SettingScreen
 import com.linggash.nutrifruity.ui.screen.splash.SplashScreen
 import com.linggash.nutrifruity.ui.theme.GrayBackground
@@ -45,7 +47,8 @@ import com.linggash.nutrifruity.ui.theme.PetitCochon
 @Composable
 fun NutriFruityApp(
     modifier: Modifier = Modifier,
-    navController: NavHostController = rememberNavController()
+    navController: NavHostController = rememberNavController(),
+    viewModel: FruitListViewModel
 ){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
@@ -83,7 +86,10 @@ fun NutriFruityApp(
                 SettingScreen()
             }
             composable(Screen.FruitList.route) {
-                FruitListScreen(navController = navController)
+                FruitListScreen(
+                    navController = navController,
+                    viewModel = viewModel
+                )
             }
         }
     }

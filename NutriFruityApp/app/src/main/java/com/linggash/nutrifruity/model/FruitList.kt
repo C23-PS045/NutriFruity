@@ -1,9 +1,9 @@
-package com.linggash.nutrifruity.ui.model
+package com.linggash.nutrifruity.model
 
 import com.google.gson.annotations.SerializedName
 
-data class FruitList(
-    val list : List<Fruit>
+data class ListFruit(
+    val fruitResponse: List<Fruit>
 )
 
 data class Fruit(
@@ -16,13 +16,6 @@ data class Fruit(
 
     @field:SerializedName("gambar")
     val photoUrl: String,
-
-    @field:SerializedName("kandungan")
-    val nutrition: List<Nutrition>,
-
-    @field:SerializedName("manfaat")
-    val benefit: List<Benefit>
-
 )
 
 data class Nutrition(
@@ -40,5 +33,17 @@ data class Benefit(
     val id: Long,
 
     @field:SerializedName("manfaat")
-    val nutrition: Long,
+    val benefit: Long,
+)
+
+data class FruitDetail(
+
+    @field:SerializedName("id")
+    val id: Long,
+
+    @field:SerializedName("nama_buah")
+    val name: String,
+
+    @field:SerializedName("gambar")
+    val photoUrl: String,
 )
