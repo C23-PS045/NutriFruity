@@ -97,12 +97,11 @@ fun HomeScreen(
                 CardComponent(
                     borderColor = RedSecondary,
                     cardColor = RedPrimary,
+                    onClick = {navController.navigate(Screen.FruitList.route)},
+                    enabled = true,
                     modifier = modifier
                         .fillMaxWidth()
                         .weight(1f)
-                        .clickable {
-                            navController.navigate(Screen.FruitList.route)
-                        }
                 ){
 
                 }
