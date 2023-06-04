@@ -8,7 +8,7 @@ import com.linggash.nutrifruity.model.Fruit
 fun Fruit.toFruitData(): FruitDataItem {
     return FruitDataItem(
         fruitId = id,
-        name = name,
+        name = name.uppercase(),
         photoUrl = photoUrl,
     )
 }

@@ -1,6 +1,7 @@
 package com.linggash.nutrifruity.ui.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
@@ -36,6 +37,7 @@ fun FruitItem(
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.padding(SpacingStandard)
+                .fillMaxWidth()
         ) {
             Text(
                 text = name,
@@ -62,7 +64,7 @@ fun FruitItemPreview(){
     FruitItem(
         borderColor = GreenSecondary,
         cardColor = GreenPrimary,
-        name = "Logo",
+        name = "LOGO",
         image = "https://storage.googleapis.com/image-nutrifruity/1.png"
     )
 }
