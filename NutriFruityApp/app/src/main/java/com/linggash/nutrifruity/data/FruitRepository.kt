@@ -12,7 +12,7 @@ import com.linggash.nutrifruity.network.ApiService
 
 class FruitRepository(private val fruitDatabase: FruitDatabase, private val apiService: ApiService) {
 
-    fun getFruit(): LiveData<PagingData<FruitDataItem>> {
+    fun getFruit(): Pager<Int, FruitDataItem> {
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
@@ -22,6 +22,6 @@ class FruitRepository(private val fruitDatabase: FruitDatabase, private val apiS
             pagingSourceFactory = {
                 fruitDatabase.fruitDao().getAllFruit()
             }
-        ).liveData
+        )
     }
 }
