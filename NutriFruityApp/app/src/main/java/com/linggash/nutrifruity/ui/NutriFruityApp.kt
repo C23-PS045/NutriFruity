@@ -34,6 +34,7 @@ import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.component.CardComponent
 import com.linggash.nutrifruity.ui.navigation.NavigationItem
 import com.linggash.nutrifruity.ui.navigation.Screen
+import com.linggash.nutrifruity.ui.screen.camera.CameraScreen
 import com.linggash.nutrifruity.ui.screen.detail.DetailScreen
 import com.linggash.nutrifruity.ui.screen.home.HomeScreen
 import com.linggash.nutrifruity.ui.screen.list.FruitListScreen
@@ -82,7 +83,9 @@ fun NutriFruityApp(
                 SplashScreen(navController = navController)
             }
             composable(Screen.Home.route) {
-                HomeScreen(navController = navController)
+                HomeScreen(
+                    navController = navController
+                )
             }
             composable(Screen.Setting.route) {
                 SettingScreen()
@@ -104,6 +107,11 @@ fun NutriFruityApp(
                     fruitId = id,
                     navigateBack = {navController.navigateUp()}
                 )
+            }
+            composable(
+                route = Screen.Camera.route,
+            ){
+                CameraScreen()
             }
         }
     }

@@ -29,7 +29,7 @@ fun SplashScreen(
        Splash(modifier.padding(innerPadding))
     }
     LaunchedEffect(key1 = true){
-        delay(3000)
+        delay(1000)
         navController.popBackStack()
         navController.navigate(Screen.Home.route)
     }

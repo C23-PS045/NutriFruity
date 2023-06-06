@@ -12,4 +12,5 @@
     <string name="nutrisi">NUTRISI</string>
     <string name="manfaat">MANFAAT</string>
     <string name="back_to_list">Back to List</string>
+    <string name="failed_show_camera">Gagal memunculkan kamera.</string>
 </resources>

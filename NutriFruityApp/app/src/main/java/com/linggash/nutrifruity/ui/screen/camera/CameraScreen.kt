@@ -1,0 +1,222 @@
+package com.linggash.nutrifruity.ui.screen.camera
+
+import android.content.Context
+import android.content.Intent
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.core.content.ContextCompat
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
+import com.linggash.nutrifruity.R
+import com.linggash.nutrifruity.ui.theme.OrangePrimary
+import com.linggash.nutrifruity.ui.theme.SpacingLarge
+
+@Composable
+fun CameraScreen(
+    modifier: Modifier = Modifier,
+    viewModel: CameraViewModel = hiltViewModel()
+){
+    CameraContent(
+        viewModel = viewModel,
+        modifier = modifier,
+    )
+}
+
+@Composable
+fun CameraContent(
+    viewModel: CameraViewModel,
+    modifier: Modifier
+) {
+    var imageCapture: ImageCapture? = null
+    val cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+    val context = LocalContext.current
+    val lifeCycleOwner = LocalLifecycleOwner.current
+
+    val previewView = PreviewView(context)
+    val failedString = stringResource(R.string.failed_show_camera)
+
+    startCamera(
+        imgCapture = {imageCapture = it},
+        cameraSelector = cameraSelector,
+        context = context,
+        lifeCycleOwner = lifeCycleOwner,
+        previewView = previewView,
+        failedString = failedString
+    )
+
+    Box {
+        AndroidView(
+            factory = {
+                previewView.apply {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT
+                    )
+                }
+            },
+            update = {
+                startCamera(
+                    imgCapture = {imageCapture = it},
+                    cameraSelector = cameraSelector,
+                    context = context,
+                    lifeCycleOwner = lifeCycleOwner,
+                    previewView = previewView,
+                    failedString = failedString
+                )
+            }
+        )
+        Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.Bottom,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(SpacingLarge)
+                .align(Alignment.BottomCenter)
+
+        ) {
+            val size = 80.dp
+            OutlinedButton(
+                shape = CircleShape,
+                border = BorderStroke(5.dp, Color.White),
+                contentPadding = PaddingValues(10.dp),
+                onClick = {
+
+                },
+                modifier = modifier
+                    .size(size)
+            ) {
+                Icon(
+                    tint = Color.White,
+                    painter = painterResource(R.drawable.ic_gallery),
+                    contentDescription = "Ambil Gambar",
+                )
+            }
+            OutlinedButton(
+                shape = CircleShape,
+                colors = ButtonDefaults.buttonColors(containerColor = OrangePrimary),
+                border = null,
+                contentPadding = PaddingValues(10.dp),
+                onClick = {
+                    takePhoto(
+                        imgCapture = imageCapture,
+                        context = context,
+                        cameraSelector = cameraSelector,
+                        viewModel = viewModel
+                    )
+                },
+                modifier = modifier
+                    .size(size)
+            ) {
+                Icon(
+                    tint = Color.White,
+                    painter = painterResource(R.drawable.ic_camera),
+                    contentDescription = "Ambil Gambar",
+                )
+            }
+            Spacer(modifier.size(size))
+        }
+    }
+}
+
+private fun takePhoto(
+    imgCapture: ImageCapture?,
+    context: Context,
+    cameraSelector: CameraSelector,
+    viewModel: CameraViewModel,
+) {
+    val imageCapture = imgCapture ?: return
+    val photoFile = viewModel.createFile()
+    val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+    imageCapture.takePicture(
+        outputOptions,
+        ContextCompat.getMainExecutor(context),
+        object : ImageCapture.OnImageSavedCallback {
+            override fun onError(exc: ImageCaptureException) {
+                Toast.makeText(
+                    context,
+                    "Gagal mengambil gambar.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                val intent = Intent()
+                intent.putExtra("picture", photoFile)
+                intent.putExtra(
+                    "isBackCamera",
+                    cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
+                )
+//                setResult(MainActivity.CAMERA_X_RESULT, intent)
+            }
+        }
+    )
+}
+
+private fun startCamera(
+    imgCapture: (ImageCapture) -> Unit,
+    cameraSelector: CameraSelector,
+    context: Context,
+    lifeCycleOwner: LifecycleOwner,
+    previewView: PreviewView,
+    failedString: String
+) {
+    val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
+
+    cameraProviderFuture.addListener({
+        val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+        val preview = Preview.Builder()
+            .build()
+            .also {
+                it.setSurfaceProvider(previewView.surfaceProvider)
+            }
+
+        val imageCapture = ImageCapture.Builder().build()
+        imgCapture(imageCapture)
+
+        try {
+            cameraProvider.unbindAll()
+            cameraProvider.bindToLifecycle(
+                lifeCycleOwner,
+                cameraSelector,
+                preview,
+                imageCapture
+            )
+        } catch (exc: Exception) {
+            Toast.makeText(
+                context,
+                failedString,
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }, ContextCompat.getMainExecutor(context))
+}

@@ -1,6 +1,8 @@
 package com.linggash.nutrifruity.di
 
+import android.app.Application
 import android.content.Context
+import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.paging.Pager
 import com.linggash.nutrifruity.data.FruitRepository
 import com.linggash.nutrifruity.database.FruitDataItem
@@ -26,7 +28,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provide(): ApiService{
+    fun provideApiService(): ApiService{
         return ApiConfig.getApiService()
     }
 

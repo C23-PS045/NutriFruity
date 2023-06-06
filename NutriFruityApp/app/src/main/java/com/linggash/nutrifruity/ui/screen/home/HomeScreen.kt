@@ -52,7 +52,9 @@ fun HomeScreen(
         CardComponent(
             borderColor = GreenSecondary,
             cardColor = GreenPrimary,
-            modifier = modifier.weight(3f)
+            modifier = modifier.weight(3f),
+            enabled = true,
+            onClick = {navController.navigate(Screen.Camera.route)}
         ){
             Column(
                 modifier = modifier
@@ -148,7 +150,8 @@ fun HomeScreen(
                     cardColor = CreamPrimary,
                     modifier = modifier
                         .fillMaxWidth()
-                        .weight(1f)
+                        .weight(1f),
+
                 ){
                     Box(
                         modifier = modifier
@@ -186,5 +189,7 @@ fun HomeScreen(
     showBackground = true
 )
 private fun HomePreview(){
-    HomeScreen(navController = rememberNavController())
+    HomeScreen(
+        navController = rememberNavController(),
+    )
 }
