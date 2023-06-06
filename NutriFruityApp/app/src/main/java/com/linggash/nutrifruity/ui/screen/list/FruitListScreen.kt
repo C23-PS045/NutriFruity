@@ -66,7 +66,8 @@ fun FruitListScreen(
                             name = item.name,
                             image = item.photoUrl,
                             onClick = {navigateToDetail(item.fruitId)},
-                            modifier = modifier.fillMaxHeight()
+                            modifier = modifier
+                                .fillMaxHeight()
                         )
                     }
                 }
