@@ -1,9 +1,13 @@
 package com.linggash.nutrifruity.ui.screen.camera
 
+import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -16,7 +20,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -40,6 +43,8 @@ import androidx.lifecycle.LifecycleOwner
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.theme.OrangePrimary
 import com.linggash.nutrifruity.ui.theme.SpacingLarge
+import com.linggash.nutrifruity.util.uriToFile
+import java.io.File
 
 @Composable
 fun CameraScreen(
@@ -65,6 +70,19 @@ fun CameraContent(
 
     val previewView = PreviewView(context)
     val failedString = stringResource(R.string.failed_show_camera)
+    var getFile: File? = null
+
+    val launcherIntentGallery = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg = result.data?.data as Uri
+            selectedImg.let { uri ->
+                val myFile = uriToFile(uri, context)
+                getFile = myFile
+            }
+        }
+    }
 
     startCamera(
         imgCapture = {imageCapture = it},
@@ -105,13 +123,15 @@ fun CameraContent(
                 .align(Alignment.BottomCenter)
 
         ) {
-            val size = 80.dp
+            val size = 70.dp
             OutlinedButton(
                 shape = CircleShape,
                 border = BorderStroke(5.dp, Color.White),
                 contentPadding = PaddingValues(10.dp),
                 onClick = {
-
+                    startGallery{
+                        launcherIntentGallery.launch(it)
+                    }
                 },
                 modifier = modifier
                     .size(size)
@@ -119,14 +139,14 @@ fun CameraContent(
                 Icon(
                     tint = Color.White,
                     painter = painterResource(R.drawable.ic_gallery),
-                    contentDescription = "Ambil Gambar",
+                    contentDescription = stringResource(R.string.gallery),
                 )
             }
             OutlinedButton(
                 shape = CircleShape,
                 colors = ButtonDefaults.buttonColors(containerColor = OrangePrimary),
                 border = null,
-                contentPadding = PaddingValues(10.dp),
+                contentPadding = PaddingValues(20.dp),
                 onClick = {
                     takePhoto(
                         imgCapture = imageCapture,
@@ -141,7 +161,7 @@ fun CameraContent(
                 Icon(
                     tint = Color.White,
                     painter = painterResource(R.drawable.ic_camera),
-                    contentDescription = "Ambil Gambar",
+                    contentDescription = stringResource(R.string.take_picture),
                 )
             }
             Spacer(modifier.size(size))
@@ -219,4 +239,14 @@ private fun startCamera(
             ).show()
         }
     }, ContextCompat.getMainExecutor(context))
+}
+
+private fun startGallery(
+    launcherIntentGallery: (Intent) -> Unit
+) {
+    val intent = Intent()
+    intent.action = Intent.ACTION_GET_CONTENT
+    intent.type = "image/*"
+    val chooser = Intent.createChooser(intent, "Choose a Picture")
+    launcherIntentGallery(chooser)
 }
