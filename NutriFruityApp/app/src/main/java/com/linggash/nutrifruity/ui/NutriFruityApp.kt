@@ -22,17 +22,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.component.CardComponent
 import com.linggash.nutrifruity.ui.navigation.NavigationItem
 import com.linggash.nutrifruity.ui.navigation.Screen
+import com.linggash.nutrifruity.ui.screen.detail.DetailScreen
 import com.linggash.nutrifruity.ui.screen.home.HomeScreen
 import com.linggash.nutrifruity.ui.screen.list.FruitListScreen
 import com.linggash.nutrifruity.ui.screen.list.FruitListViewModel
@@ -87,8 +89,20 @@ fun NutriFruityApp(
             }
             composable(Screen.FruitList.route) {
                 FruitListScreen(
-                    navController = navController,
+                    navigateToDetail = { fruitId ->
+                        navController.navigate(Screen.FruitDetail.createRoute(fruitId))
+                    },
                     viewModel = viewModel
+                )
+            }
+            composable(
+                route = Screen.FruitDetail.route,
+                arguments = listOf(navArgument("fruitId") {type = NavType.LongType}),
+            ){
+                val id = it.arguments?.getLong("fruitId") ?: -1L
+                DetailScreen(
+                    fruitId = id,
+                    navigateBack = {navController.navigateUp()}
                 )
             }
         }

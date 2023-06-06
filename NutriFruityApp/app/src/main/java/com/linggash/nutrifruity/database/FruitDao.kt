@@ -1,6 +1,5 @@
 package com.linggash.nutrifruity.database
 
-import androidx.lifecycle.LiveData
 import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
@@ -14,7 +13,10 @@ interface FruitDao {
     suspend fun insertFruit(fruit: List<FruitDataItem>)
 
     @Query("SELECT * FROM fruit")
-    fun getAllFruit(): PagingSource<Int, FruitDataItem>
+    fun getAllFruitAsPagingSource(): PagingSource<Int, FruitDataItem>
+
+    @Query("SELECT * FROM fruit")
+    fun getAllFruit(): List<FruitDataItem>
 
     @Query("DELETE FROM fruit")
     suspend fun deleteAll()
@@ -33,5 +35,5 @@ interface FruitDao {
 
     @Transaction
     @Query("SELECT * from fruit")
-    fun getAllFruitWithNutritionAndBenefit(): PagingSource<Int, FruitWithNutritionAndBenefit>
+    fun getAllFruitWithNutritionAndBenefit():  List<FruitWithNutritionAndBenefit>
 }

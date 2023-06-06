@@ -9,4 +9,7 @@
     <string name="daftar_buah">DAFTAR BUAH</string>
     <string name="tebak_buah">TEBAK BUAH</string>
     <string name="pengaturan">PENGATURAN</string>
+    <string name="nutrisi">NUTRISI</string>
+    <string name="manfaat">MANFAAT</string>
+    <string name="back_to_list">Back to List</string>
 </resources>

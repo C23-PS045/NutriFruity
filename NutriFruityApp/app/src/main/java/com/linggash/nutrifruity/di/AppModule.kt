@@ -32,6 +32,10 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideRepository(fruitDb: FruitDatabase, apiService: ApiService) = FruitRepository(fruitDb, apiService)
+
+    @Provides
+    @Singleton
     fun provideFruitPager(fruitDb: FruitDatabase, apiService: ApiService): Pager<Int, FruitDataItem> {
         return FruitRepository(fruitDb, apiService).getFruit()
     }

@@ -1,6 +1,8 @@
 package com.linggash.nutrifruity.ui.component
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -14,7 +16,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.theme.BrownText
 import com.linggash.nutrifruity.ui.theme.GreenPrimary
 import com.linggash.nutrifruity.ui.theme.GreenSecondary
@@ -28,16 +29,21 @@ fun FruitItem(
     borderColor: Color,
     cardColor: Color,
     name: String,
-    image: String
+    image: String,
+    onClick: () -> Unit
 ){
     CardComponent(
         borderColor = borderColor,
         cardColor = cardColor,
+        enabled = true,
+        onClick = {onClick()},
+        modifier = modifier
+            .fillMaxSize()
     ) {
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = modifier.padding(SpacingStandard)
-                .fillMaxWidth()
+                .fillMaxSize()
         ) {
             Text(
                 text = name,
@@ -50,7 +56,7 @@ fun FruitItem(
                 model = image,
                 contentDescription = name,
                 modifier = modifier
-                    .size(134.dp)
+                    .fillMaxSize()
             )
         }
     }
@@ -65,6 +71,7 @@ fun FruitItemPreview(){
         borderColor = GreenSecondary,
         cardColor = GreenPrimary,
         name = "LOGO",
-        image = "https://storage.googleapis.com/image-nutrifruity/1.png"
+        image = "https://storage.googleapis.com/image-nutrifruity/1.png",
+        onClick = {}
     )
 }

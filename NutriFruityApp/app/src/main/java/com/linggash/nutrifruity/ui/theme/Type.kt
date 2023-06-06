@@ -38,3 +38,7 @@ val Typography = Typography(
 val PetitCochon = FontFamily(
     Font(R.font.petit_cochon)
 )
+
+val NanumPen = FontFamily(
+    Font(R.font.nanum_pen_script)
+)
