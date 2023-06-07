@@ -1,6 +1,5 @@
 package com.linggash.nutrifruity.ui
 
-import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -47,7 +46,6 @@ import com.linggash.nutrifruity.ui.theme.GrayBackground
 import com.linggash.nutrifruity.ui.theme.OrangePrimary
 import com.linggash.nutrifruity.ui.theme.OrangeSecondary
 import com.linggash.nutrifruity.ui.theme.PetitCochon
-import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -114,20 +112,19 @@ fun NutriFruityApp(
             composable(
                 route = Screen.Camera.route,
             ){
-                CameraScreen()
+                CameraScreen(navigateTo = { file ->
+                        navController.navigate(Screen.CameraResult.createRoute(file))
+                    }
+                )
             }
             composable(
                 route = Screen.CameraResult.route,
-                arguments = listOf(navArgument("file") {type = NavType.SerializableType(File::class.java)})
+                arguments = listOf(navArgument("path") {type = NavType.StringType})
             ){
-                val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    it.arguments?.getSerializable("file", File::class.java)
-                } else {
-                    it.arguments?.getSerializable("file") as File?
-                }
-                if (file != null) {
-                    CameraResultScreen(file = file)
-                }
+                val path = it.arguments?.getString("path") ?: ""
+                CameraResultScreen(
+                    path = path
+                )
             }
         }
     }

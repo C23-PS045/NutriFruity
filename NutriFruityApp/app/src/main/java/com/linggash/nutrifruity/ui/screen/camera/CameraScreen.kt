@@ -1,6 +1,7 @@
 package com.linggash.nutrifruity.ui.screen.camera
 
 import android.app.Activity.RESULT_OK
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.view.ViewGroup
@@ -24,7 +25,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -43,6 +43,7 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.LifecycleOwner
 import coil.compose.AsyncImage
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.common.UiState
@@ -56,10 +57,16 @@ import java.io.File
 fun CameraScreen(
     modifier: Modifier = Modifier,
     viewModel: CameraViewModel = hiltViewModel(),
+    navigateTo: @Composable (String) -> Unit
 ){
+    val context = LocalContext.current
+    val lifeCycleOwner = LocalLifecycleOwner.current
     CameraContent(
         viewModel = viewModel,
         modifier = modifier,
+        context = context,
+        lifeCycleOwner = lifeCycleOwner,
+        navigateTo = {navigateTo(Uri.encode(it))}
     )
 }
 
@@ -67,10 +74,10 @@ fun CameraScreen(
 fun CameraContent(
     viewModel: CameraViewModel,
     modifier: Modifier,
+    context: Context,
+    lifeCycleOwner: LifecycleOwner,
+    navigateTo: @Composable (String) -> Unit
 ) {
-    val context = LocalContext.current
-    val lifeCycleOwner = LocalLifecycleOwner.current
-
     val previewView = PreviewView(context)
     val failedString = stringResource(R.string.failed_show_camera)
 
@@ -120,19 +127,20 @@ fun CameraContent(
                 UiState.Loading -> {
                 }
                 is UiState.Success -> {
-                    ImageDialog(
-                        modifier = modifier,
-                        file = uiState.data,
-                        onDismiss = {
-                            viewModel.closeDialog()
-                            viewModel.startCamera(
-                                context = context,
-                                lifeCycleOwner = lifeCycleOwner,
-                                previewView = previewView,
-                                failedString = failedString,
-                            )
-                        }
-                    )
+                    navigateTo(uiState.data.path)
+//                    ImageDialog(
+//                        modifier = modifier,
+//                        file = uiState.data,
+//                        onDismiss = {
+//                            viewModel.closeDialog()
+//                            viewModel.startCamera(
+//                                context = context,
+//                                lifeCycleOwner = lifeCycleOwner,
+//                                previewView = previewView,
+//                                failedString = failedString,
+//                            )
+//                        }
+//                    )
                 }
             }
         }
@@ -191,8 +199,11 @@ fun ImageDialog(
     file: File,
     onDismiss: () -> Unit
 ){
+    val  bitmap = BitmapFactory.decodeFile(file.path)
+
+    val result =
     Dialog(
-        onDismissRequest = {},
+        onDismissRequest = {onDismiss()},
         properties = DialogProperties(
             usePlatformDefaultWidth = false
         )
@@ -205,6 +216,7 @@ fun ImageDialog(
                 .border(1.dp, color = OrangePrimary, shape = RoundedCornerShape(SpacingStandard))
         ) {
             Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = modifier
                     .fillMaxWidth()
                     .padding(SpacingStandard)

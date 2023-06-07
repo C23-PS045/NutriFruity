@@ -1,20 +1,20 @@
 package com.linggash.nutrifruity.ui.screen.camera
 
-import android.graphics.BitmapFactory
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import coil.compose.AsyncImage
-import java.io.File
+import androidx.compose.ui.res.painterResource
+import com.linggash.nutrifruity.R
 
 @Composable
 fun CameraResultScreen(
     modifier: Modifier = Modifier,
-    file: File,
+    path: String,
 ){
-    AsyncImage(
-        model = BitmapFactory.decodeFile(file.path),
-        contentDescription = "Buah",
-        modifier = modifier.fillMaxWidth()
-    )
+    Column(modifier.fillMaxSize()) {
+        Image(painter = painterResource(R.drawable.mark_question), contentDescription = "", modifier.fillMaxWidth())
+    }
 }

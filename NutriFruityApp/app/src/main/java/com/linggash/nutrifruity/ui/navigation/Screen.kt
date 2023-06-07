@@ -11,7 +11,7 @@ sealed class Screen(val route: String) {
         fun createRoute(fruitId: Long) = "list/$fruitId"
     }
     object Camera : Screen("camera")
-    object CameraResult : Screen("camera/{file}") {
-        fun createRoute(file: File) = "camera/$file"
+    object CameraResult : Screen("camera/{path}") {
+        fun createRoute(path: String) = "camera/$path"
     }
 }
