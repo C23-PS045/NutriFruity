@@ -1,5 +1,6 @@
 package com.linggash.nutrifruity.ui
 
+import android.os.Build
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -34,6 +35,7 @@ import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.ui.component.CardComponent
 import com.linggash.nutrifruity.ui.navigation.NavigationItem
 import com.linggash.nutrifruity.ui.navigation.Screen
+import com.linggash.nutrifruity.ui.screen.camera.CameraResultScreen
 import com.linggash.nutrifruity.ui.screen.camera.CameraScreen
 import com.linggash.nutrifruity.ui.screen.detail.DetailScreen
 import com.linggash.nutrifruity.ui.screen.home.HomeScreen
@@ -45,6 +47,7 @@ import com.linggash.nutrifruity.ui.theme.GrayBackground
 import com.linggash.nutrifruity.ui.theme.OrangePrimary
 import com.linggash.nutrifruity.ui.theme.OrangeSecondary
 import com.linggash.nutrifruity.ui.theme.PetitCochon
+import java.io.File
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -112,6 +115,19 @@ fun NutriFruityApp(
                 route = Screen.Camera.route,
             ){
                 CameraScreen()
+            }
+            composable(
+                route = Screen.CameraResult.route,
+                arguments = listOf(navArgument("file") {type = NavType.SerializableType(File::class.java)})
+            ){
+                val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    it.arguments?.getSerializable("file", File::class.java)
+                } else {
+                    it.arguments?.getSerializable("file") as File?
+                }
+                if (file != null) {
+                    CameraResultScreen(file = file)
+                }
             }
         }
     }

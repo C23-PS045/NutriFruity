@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    val fruitRepository: FruitRepository
+    private val fruitRepository: FruitRepository
 ): ViewModel() {
 
     private val _uiState: MutableStateFlow<UiState<FruitDetail>> =
