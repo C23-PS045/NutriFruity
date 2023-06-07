@@ -41,6 +41,10 @@ class CameraViewModel @Inject constructor(
         _uiState.value = UiState.Success(file)
     }
 
+    fun closeDialog(){
+        _uiState.value = UiState.Loading
+    }
+
     private fun createFile(): File {
         val mediaDir = application.externalMediaDirs.firstOrNull()?.let {
             File(it, application.resources.getString(R.string.app_name)).apply { mkdirs() }
@@ -83,7 +87,7 @@ class CameraViewModel @Inject constructor(
         lifeCycleOwner: LifecycleOwner,
         context: Context,
         previewView: PreviewView,
-        failedString: String
+        failedString: String,
     ) {
          val cameraProviderFuture = ProcessCameraProvider.getInstance(context)
 

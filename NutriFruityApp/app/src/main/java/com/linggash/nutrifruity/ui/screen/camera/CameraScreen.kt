@@ -11,6 +11,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,12 +20,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -112,15 +115,24 @@ fun CameraContent(
         viewModel.uiState.collectAsState().value.let { uiState ->
             when (uiState) {
                 is UiState.Error -> {
+
                 }
                 UiState.Loading -> {
                 }
                 is UiState.Success -> {
                     ImageDialog(
                         modifier = modifier,
-                        file = uiState.data
+                        file = uiState.data,
+                        onDismiss = {
+                            viewModel.closeDialog()
+                            viewModel.startCamera(
+                                context = context,
+                                lifeCycleOwner = lifeCycleOwner,
+                                previewView = previewView,
+                                failedString = failedString,
+                            )
+                        }
                     )
-
                 }
             }
         }
@@ -176,7 +188,8 @@ fun CameraContent(
 @Composable
 fun ImageDialog(
     modifier: Modifier,
-    file: File
+    file: File,
+    onDismiss: () -> Unit
 ){
     Dialog(
         onDismissRequest = {},
@@ -191,10 +204,24 @@ fun ImageDialog(
                 .fillMaxWidth(0.95f)
                 .border(1.dp, color = OrangePrimary, shape = RoundedCornerShape(SpacingStandard))
         ) {
-            AsyncImage(
-                model = BitmapFactory.decodeFile(file.path),
-                contentDescription = "Buah"
-            )
+            Column(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(SpacingStandard)
+            ) {
+                AsyncImage(
+                    model = BitmapFactory.decodeFile(file.path),
+                    contentDescription = "Buah"
+                )
+                Text(text = "Ini adalah buah ....")
+                Row(modifier = modifier.fillMaxWidth()) {
+                    Button(
+                        onClick = {onDismiss()}
+                    ) {
+                        Text(text = "Kembali")
+                    }
+                }
+            }
         }
     }
 }
