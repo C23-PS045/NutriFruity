@@ -2,4 +2,10 @@
     <string name="app_name">NutriFruity</string>
     <string name="title_home">Home</string>
     <string name="tittle_setting">Setting</string>
+    <string name="others">LAINNYA</string>
+    <string name="list_fruit">DAFTAR BUAH</string>
+    <string name="game">TEBAK GAMBAR</string>
+    <string name="nutrifruity">NUTRIFRUITY</string>
+    <string name="fruit_camera">KAMERA BUAH</string>
+    <string name="scan_fruit">AYO PINDAI BUAH !!!!</string>
 </resources>
