@@ -3,12 +3,17 @@ package com.linggash.nutrifruity.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
+import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -28,13 +33,37 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
+import com.linggash.nutrifruity.ml.ConvertedModel
 import com.linggash.nutrifruity.util.createFile
+import com.linggash.nutrifruity.util.uriToFile
+import org.tensorflow.lite.DataType
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import java.io.File
+import java.nio.ByteBuffer
 
 class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+    private var getFile: File? = null
+
+    private val mInputSize = 100
+    private val mModelPath = "converted_model.tflite"
+    private val mLabelPath = "label.txt"
 
     private lateinit var binding: ActivityCameraBinding
+
+    private val launcherIntentGallery = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val selectedImg = result.data?.data as Uri
+            selectedImg.let { uri ->
+                val myFile = uriToFile(uri, this@CameraActivity)
+                getFile = myFile
+                classifyImage()
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +109,58 @@ class CameraActivity : AppCompatActivity() {
         startCamera()
     }
 
+    private fun classifyImage(){
+        val bitmap = BitmapFactory.decodeFile(getFile?.path)
+//        val classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
+//
+//        val result = classifier.recognizeImage(bitmap)
+//        runOnUiThread{
+//            Toast.makeText(this, result[0].title, Toast.LENGTH_SHORT).show()
+//        }
+        val dimension  = Math.min(bitmap.width, bitmap.height)
+        var image = ThumbnailUtils.extractThumbnail(bitmap, dimension, dimension)
+        image = Bitmap.createScaledBitmap(image, mInputSize, mInputSize, false)
+
+        val model = ConvertedModel.newInstance(this)
+        val byteBuffer = ByteBuffer.allocateDirect(4 * mInputSize * mInputSize * 3)
+        val intValues = IntArray(mInputSize * mInputSize)
+        image.getPixels(intValues, 0, image.width, 0, 0, image.width, image.height)
+        var pixel = 0
+
+        for (i in 1..mInputSize){
+            for (j in 1.. mInputSize){
+                val values = intValues[pixel++]
+                byteBuffer.putFloat((values shr 16 and 0xFF) * (1f / 1))
+                byteBuffer.putFloat((values shr 8 and 0xFF) * (1f / 1))
+                byteBuffer.putFloat((values and 0xFF) * (1f / 1))
+            }
+        }
+
+        // Creates inputs for reference.
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 100, 100, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(byteBuffer)
+
+        // Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+        val confidences = outputFeature0.floatArray
+        // find the index of the class with the biggest confidence.
+        var maxPos = 0
+        var maxConfidence = 0f
+        for (i in confidences.indices) {
+            if (confidences[i] > maxConfidence) {
+                maxConfidence = confidences[i]
+                maxPos = i
+            }
+        }
+        val classes = arrayOf("stroberi", "pisang", "jeruk", "alpukat", "apel", "jambu biji", "pepaya", "melon", "anggur", "semangkat", "mangga", "pir" )
+        Toast.makeText(this, classes[maxPos], Toast.LENGTH_SHORT).show()
+
+        // Releases model resources if no longer used.
+        model.close()
+    }
+
     private fun setView() {
         binding.captureImage.setContent {
             OutlinedButton(
@@ -104,7 +185,7 @@ class CameraActivity : AppCompatActivity() {
                 border = BorderStroke(5.dp, Color.White),
                 contentPadding = PaddingValues(10.dp),
                 onClick = {
-
+                    startGallery()
                 }
             ) {
                 Icon(
@@ -138,7 +219,8 @@ class CameraActivity : AppCompatActivity() {
                         "isBackCamera",
                         cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA
                     )
-                    finish()
+                    getFile = photoFile
+                    classifyImage()
                 }
             }
         )
@@ -186,6 +268,14 @@ class CameraActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+    }
+
+    private fun startGallery() {
+        val intent = Intent()
+        intent.action = Intent.ACTION_GET_CONTENT
+        intent.type = "image/*"
+        val chooser = Intent.createChooser(intent, "Choose a Picture")
+        launcherIntentGallery.launch(chooser)
     }
 
     companion object {
