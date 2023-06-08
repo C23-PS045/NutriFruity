@@ -1,5 +1,6 @@
 package com.linggash.nutrifruity.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,7 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.FragmentHomeBinding
-import com.linggash.nutrifruity.ui.custom.CardComponent
+import com.linggash.nutrifruity.ui.camera.CameraActivity
+import com.linggash.nutrifruity.ui.component.CardComponent
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 import com.linggash.nutrifruity.ui.theme.SpacingStandard
 
@@ -67,7 +69,10 @@ class HomeFragment : Fragment() {
                 borderColor = colorResource(R.color.green_secondary),
                 cardColor = colorResource(R.color.green_primary),
                 enabled = true,
-                onClick = {}
+                onClick = {
+                    val intent = Intent(requireActivity(), CameraActivity::class.java)
+                    startActivity(intent)
+                }
             ){
                 Column(
                     modifier = Modifier

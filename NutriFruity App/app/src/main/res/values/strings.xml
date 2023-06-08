@@ -11,4 +11,6 @@
     <string name="setting">PENGATURAN</string>
     <string name="music">MUSIC</string>
     <string name="sound">SOUND</string>
+    <string name="take_picture">Ambil Gambar</string>
+    <string name="gallery">Gallery</string>
 </resources>

@@ -1,7 +1,6 @@
-package com.linggash.nutrifruity.ui.custom
+package com.linggash.nutrifruity.ui.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card

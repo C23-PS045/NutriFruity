@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Switch
@@ -17,10 +16,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.FragmentSettingBinding
-import com.linggash.nutrifruity.ui.custom.CardComponent
+import com.linggash.nutrifruity.ui.component.CardComponent
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 
 class SettingFragment : Fragment() {
