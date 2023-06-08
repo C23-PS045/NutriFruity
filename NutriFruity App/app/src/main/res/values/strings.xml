@@ -8,4 +8,7 @@
     <string name="nutrifruity">NUTRIFRUITY</string>
     <string name="fruit_camera">KAMERA BUAH</string>
     <string name="scan_fruit">AYO PINDAI BUAH !!!!</string>
+    <string name="setting">PENGATURAN</string>
+    <string name="music">MUSIC</string>
+    <string name="sound">SOUND</string>
 </resources>
