@@ -30,6 +30,7 @@ import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.FragmentHomeBinding
 import com.linggash.nutrifruity.ui.camera.CameraActivity
 import com.linggash.nutrifruity.ui.component.CardComponent
+import com.linggash.nutrifruity.ui.list.FruitListActivity
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 import com.linggash.nutrifruity.ui.theme.SpacingStandard
 
@@ -102,7 +103,10 @@ class HomeFragment : Fragment() {
             CardComponent(
                 borderColor = colorResource(R.color.red_secondary),
                 cardColor = colorResource(R.color.red_primary),
-                onClick = {},
+                onClick = {
+                    val intent = Intent(requireActivity(), FruitListActivity::class.java)
+                    startActivity(intent)
+                },
                 enabled = true,
                 modifier = Modifier
                     .fillMaxWidth()
