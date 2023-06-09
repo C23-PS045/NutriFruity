@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import com.linggash.nutrifruity.databinding.ActivityFruitListBinding
 import com.linggash.nutrifruity.ui.adapter.LoadingStateAdapter
+import com.linggash.nutrifruity.ui.detail.FruitDetailActivity
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.map
 
@@ -34,7 +35,7 @@ class FruitListActivity : AppCompatActivity() {
 
     private fun getData() {
         val adapter = FruitListAdapter{
-            val intent = Intent()
+            val intent = Intent(this, FruitDetailActivity::class.java)
             intent.putExtra(ID, it.fruitId)
             startActivity(intent)
         }

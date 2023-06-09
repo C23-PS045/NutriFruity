@@ -14,4 +14,7 @@
     <string name="take_picture">Ambil Gambar</string>
     <string name="gallery">Gallery</string>
     <string name="retry">Coba Lagi</string>
+    <string name="benefit">MANFAAT</string>
+    <string name="nutrition">NUTRISI</string>
+    <string name="back">Kembali</string>
 </resources>
