@@ -1,12 +1,12 @@
-stroberi
-pisang
-jeruk
-alpukat
-apel
-jambu biji
-pepaya
-melon
-anggur
-semangka
-mangga
-pir
+APEL
+ALUPKAT
+PISANG
+ANGGUR
+JAMBU BIJI
+MANGGA
+MELON
+JERUK
+PEPAYA
+PIR
+STROBERI
+SEMANGKA
