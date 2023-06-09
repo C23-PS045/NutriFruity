@@ -32,6 +32,7 @@ import androidx.core.content.ContextCompat
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
 import com.linggash.nutrifruity.tflite.Classifier
+import com.linggash.nutrifruity.ui.result.CameraResultActivity
 import com.linggash.nutrifruity.util.createFile
 import com.linggash.nutrifruity.util.uriToFile
 import java.io.File
@@ -39,10 +40,6 @@ import java.io.File
 class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
-
-    private val mInputSize = 100
-    private val mModelPath = "converted_model.tflite"
-    private val mLabelPath = "label.txt"
 
     private lateinit var binding: ActivityCameraBinding
 
@@ -53,7 +50,9 @@ class CameraActivity : AppCompatActivity() {
             val selectedImg = result.data?.data as Uri
             selectedImg.let { uri ->
                 val myFile = uriToFile(uri, this@CameraActivity)
-                classifyImage(myFile)
+                val intent = Intent(this@CameraActivity, CameraResultActivity::class.java)
+                intent.putExtra(PICTURE, myFile)
+                startActivity(intent)
             }
         }
     }
@@ -100,16 +99,6 @@ class CameraActivity : AppCompatActivity() {
         super.onResume()
         hideSystemUI()
         startCamera()
-    }
-
-    private fun classifyImage(file: File){
-        val bitmap = BitmapFactory.decodeFile(file.path)
-        val classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
-
-        val result = classifier.recognizeImage(bitmap)
-        runOnUiThread{
-            Toast.makeText(this, result[0].title, Toast.LENGTH_SHORT).show()
-        }
     }
 
     private fun setView() {
@@ -164,9 +153,9 @@ class CameraActivity : AppCompatActivity() {
                     ).show()
                 }
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
-                    val intent = Intent()
-                    intent.putExtra("picture", photoFile)
-                    classifyImage(photoFile)
+                    val intent = Intent(this@CameraActivity, CameraResultActivity::class.java)
+                    intent.putExtra(PICTURE, photoFile)
+                    startActivity(intent)
                 }
             }
         )
@@ -227,5 +216,6 @@ class CameraActivity : AppCompatActivity() {
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10
+        const val PICTURE = "picture"
     }
 }

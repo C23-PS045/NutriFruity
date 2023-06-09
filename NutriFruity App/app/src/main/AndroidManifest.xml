@@ -25,6 +25,9 @@
         android:theme="@style/Theme.NutriFruity"
         tools:targetApi="31">
         <activity
+            android:name=".ui.result.CameraResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.detail.FruitDetailActivity"
             android:exported="false" />
         <activity
