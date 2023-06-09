@@ -3,7 +3,6 @@ package com.linggash.nutrifruity.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -31,11 +30,9 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
-import com.linggash.nutrifruity.tflite.Classifier
 import com.linggash.nutrifruity.ui.result.CameraResultActivity
 import com.linggash.nutrifruity.util.createFile
 import com.linggash.nutrifruity.util.uriToFile
-import java.io.File
 
 class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
