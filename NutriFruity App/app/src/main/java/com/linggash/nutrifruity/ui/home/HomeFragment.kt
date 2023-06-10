@@ -1,10 +1,12 @@
 package com.linggash.nutrifruity.ui.home
 
 import android.content.Intent
+import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -40,6 +42,10 @@ class HomeFragment : Fragment() {
 
     private val binding get() = _binding!!
 
+    private lateinit var sp: SoundPool
+    private var soundId: Int = 0
+    private var spLoaded = false
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -47,6 +53,20 @@ class HomeFragment : Fragment() {
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        sp = SoundPool.Builder()
+            .setMaxStreams(10)
+            .build()
+
+        sp.setOnLoadCompleteListener{ _, _, status ->
+            if (status == 0){
+                spLoaded = true
+            }else {
+                Toast.makeText(requireActivity(), "Gagal load", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        soundId = sp.load(requireContext(), R.raw.btn, 1)
 
         binding.cvTitle.setContent {
             CardComponent(
@@ -71,6 +91,9 @@ class HomeFragment : Fragment() {
                 cardColor = colorResource(R.color.green_primary),
                 enabled = true,
                 onClick = {
+                    if (spLoaded) {
+                        sp.play(soundId, 1f, 1f, 0, 0, 1f)
+                    }
                     val intent = Intent(requireActivity(), CameraActivity::class.java)
                     startActivity(intent)
                 }
@@ -104,6 +127,9 @@ class HomeFragment : Fragment() {
                 borderColor = colorResource(R.color.red_secondary),
                 cardColor = colorResource(R.color.red_primary),
                 onClick = {
+                    if (spLoaded) {
+                        sp.play(soundId, 1f, 1f, 0, 0, 1f)
+                    }
                     val intent = Intent(requireActivity(), FruitListActivity::class.java)
                     startActivity(intent)
                 },
@@ -135,7 +161,13 @@ class HomeFragment : Fragment() {
                 borderColor = colorResource(R.color.cream_secondary),
                 cardColor = colorResource(R.color.cream_primary),
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
+                enabled = true,
+                onClick = {
+                    if (spLoaded) {
+                        sp.play(soundId, 1f, 1f, 0, 0, 1f)
+                    }
+                }
 
                 ){
                 Box(

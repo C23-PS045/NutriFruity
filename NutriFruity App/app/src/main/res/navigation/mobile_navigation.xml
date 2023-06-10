@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_setting"
         android:name="com.linggash.nutrifruity.ui.setting.SettingFragment"
         android:label="@string/tittle_setting"
         tools:layout="@layout/fragment_setting" />
