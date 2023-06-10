@@ -5,11 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import androidx.lifecycle.map
 import com.linggash.nutrifruity.database.Fruit
+import com.linggash.nutrifruity.database.FruitBenefitCrossRef
 import com.linggash.nutrifruity.database.FruitDao
-import com.linggash.nutrifruity.database.FruitDatabase
-import com.linggash.nutrifruity.model.FruitDetailResponse
+import com.linggash.nutrifruity.database.FruitNutritionCrossRef
+import com.linggash.nutrifruity.database.FruitWithNutritionAndBenefit
 import com.linggash.nutrifruity.network.ApiService
+import com.linggash.nutrifruity.util.toBenefitData
 import com.linggash.nutrifruity.util.toFruitData
+import com.linggash.nutrifruity.util.toNutritionData
 
 class FruitRepository(
     private val fruitDao: FruitDao,
@@ -27,33 +30,27 @@ class FruitRepository(
             emit(Result.Error(e.message.toString()))
         }
         val localData: LiveData<Result<List<Fruit>>> = fruitDao.getAllFruit().map {
-            Log.d("hasi", it.toString())
             Result.Success(it)
         }
         emitSource(localData)
     }
 
-    suspend fun getFruitDetail(id: Long): FruitDetailResponse {
-        return apiService.getFruitDetail(id)
-//        val fruitId = fruitDatabase.fruitDao().getAllFruit().filter {
-//            it.fruitId == id
-//        }
-//        if (fruitId == null){
-//            val fruitDetail = apiService.getFruitDetail(id)
-//            fruitDatabase.fruitDao().insertFruitNutritionCrossRef(fruitDetail.nutrition.map {
-//                FruitNutritionCrossRef(id, it.id)
-//            })
-//            fruitDatabase.fruitDao().insertFruitBenefitCrossRef(fruitDetail.benefit.map {
-//                FruitBenefitCrossRef(id, it.id)
-//            })
-//            return fruitDatabase.fruitDao().getAllFruitWithNutritionAndBenefit().first {
-//                it.fruit.fruitId == id
-//            }
-//        }else{
-//            return fruitDatabase.fruitDao().getAllFruitWithNutritionAndBenefit().first {
-//                it.fruit.fruitId == id
-//            }
-//        }
+    fun getFruitDetail(id: Long): LiveData<Result<FruitWithNutritionAndBenefit>> = liveData {
+        emit(Result.Loading)
+        try {
+            val response = apiService.getFruitDetail(id)
+            fruitDao.insertNutrition(response.nutritionResponse.map { it.toNutritionData() })
+            fruitDao.insertBenefit(response.benefitResponse.map { it.toBenefitData() })
+            fruitDao.insertFruitNutritionCrossRef(response.nutritionResponse.map { FruitNutritionCrossRef(fId = response.id, nId = it.id) })
+            fruitDao.insertFruitBenefitCrossRef(response.benefitResponse.map { FruitBenefitCrossRef(response.id, it.id) })
+        } catch (e: Exception) {
+            Log.d("FruitRespository", e.message.toString())
+            emit(Result.Error(e.message.toString()))
+        }
+        val localData: LiveData<Result<FruitWithNutritionAndBenefit>> = fruitDao.getAllFruitWithNutritionAndBenefit(id).map {
+            Result.Success(it)
+        }
+        emitSource(localData)
     }
 
     companion object {

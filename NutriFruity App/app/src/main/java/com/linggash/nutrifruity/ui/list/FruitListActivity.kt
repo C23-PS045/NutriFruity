@@ -26,7 +26,7 @@ class FruitListActivity : AppCompatActivity() {
 
         val fruitAdapter = FruitListAdapter{
             val intent = Intent(this, FruitDetailActivity::class.java)
-            intent.putExtra(ID, it.fruitId)
+            intent.putExtra(ID, it)
             startActivity(intent)
         }
 
@@ -48,7 +48,7 @@ class FruitListActivity : AppCompatActivity() {
                         binding.progressBar.visibility = View.GONE
                         Toast.makeText(
                             this,
-                            "Terjadi kesalahan" + result.error,
+                            "Tidak ada koneksi Internet",
                             Toast.LENGTH_SHORT
                         ).show()
                     }

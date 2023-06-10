@@ -24,8 +24,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.linggash.nutrifruity.R
-import com.linggash.nutrifruity.model.BenefitResponse
-import com.linggash.nutrifruity.model.NutritionResponse
+import com.linggash.nutrifruity.database.Benefit
+import com.linggash.nutrifruity.database.Nutrition
 import com.linggash.nutrifruity.ui.theme.NanumPen
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 import com.linggash.nutrifruity.ui.theme.SpacingLarge
@@ -36,11 +36,11 @@ fun FruitDetailContent(
     modifier: Modifier = Modifier,
     name: String,
     imageUrl: String,
-    nutrition: List<NutritionResponse>,
-    benefit: List<BenefitResponse>,
+    nutrition: List<Nutrition>? = null,
+    benefit: List<Benefit>? = null,
     color: Color = colorResource(R.color.green_primary)
 ){
-    val nutritionText = nutrition.joinToString { it.nutrition }
+    val nutritionText = nutrition?.joinToString { it.nutrition }
     Scaffold(
         topBar = { TopBarDetail(name, modifier, color) },
         containerColor = color,
@@ -68,15 +68,17 @@ fun FruitDetailContent(
                 modifier = modifier
                     .fillMaxWidth()
             )
-            Text(
-                text = nutritionText,
-                color = Color.White,
-                fontFamily = NanumPen,
-                fontSize = 24.sp,
-                textAlign = TextAlign.Start,
-                modifier = modifier
-                    .fillMaxWidth()
-            )
+            if (nutritionText != null) {
+                Text(
+                    text = nutritionText,
+                    color = Color.White,
+                    fontFamily = NanumPen,
+                    fontSize = 24.sp,
+                    textAlign = TextAlign.Start,
+                    modifier = modifier
+                        .fillMaxWidth()
+                )
+            }
             Text(
                 text = stringResource(R.string.benefit) + " $name",
                 color = Color.White,
@@ -86,7 +88,7 @@ fun FruitDetailContent(
                 modifier = modifier
                     .fillMaxWidth()
             )
-            benefit.forEach {
+            benefit?.forEach {
                 Row {
                     Text(
                         text = Typography.bullet + "\t",

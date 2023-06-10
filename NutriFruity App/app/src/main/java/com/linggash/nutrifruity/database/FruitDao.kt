@@ -31,6 +31,6 @@ interface FruitDao {
     suspend fun insertFruitBenefitCrossRef(fruitBenefitCrossRef: List<FruitBenefitCrossRef>)
 
     @Transaction
-    @Query("SELECT * from fruit")
-    fun getAllFruitWithNutritionAndBenefit():  List<FruitWithNutritionAndBenefit>
+    @Query("SELECT * FROM fruit WHERE fruitId = :id")
+    fun getAllFruitWithNutritionAndBenefit(id: Long):  LiveData<FruitWithNutritionAndBenefit>
 }

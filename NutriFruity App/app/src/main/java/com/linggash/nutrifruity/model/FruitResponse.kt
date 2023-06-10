@@ -47,5 +47,5 @@ data class FruitDetailResponse(
     val nutritionResponse: List<NutritionResponse>,
 
     @field:SerializedName("manfaat")
-    val benefit: List<BenefitResponse>
+    val benefitResponse: List<BenefitResponse>
 )

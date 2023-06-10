@@ -1,13 +1,15 @@
 package com.linggash.nutrifruity.database
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Junction
 import androidx.room.PrimaryKey
 import androidx.room.Relation
+import kotlinx.parcelize.Parcelize
 
-
+@Parcelize
 @Entity(tableName = "fruit")
 data class Fruit(
 
@@ -17,7 +19,7 @@ data class Fruit(
     val name: String,
 
     val photoUrl: String,
-)
+): Parcelable
 
 @Entity(tableName = "nutrition")
 data class Nutrition(
@@ -25,7 +27,7 @@ data class Nutrition(
     @PrimaryKey
     val nutriId: Long,
 
-    val nutrition: Long,
+    val nutrition: String,
 )
 
 @Entity(tableName = "benefit")
@@ -34,7 +36,7 @@ data class Benefit(
     @PrimaryKey
     val benId: Long,
 
-    val nutrition: Long,
+    val benefit: String,
 )
 
 @Entity(primaryKeys = ["fId", "nId"])
