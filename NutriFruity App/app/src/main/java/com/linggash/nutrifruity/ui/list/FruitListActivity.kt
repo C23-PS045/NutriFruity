@@ -10,6 +10,7 @@ import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.linggash.nutrifruity.data.Result
 import com.linggash.nutrifruity.databinding.ActivityFruitListBinding
+import com.linggash.nutrifruity.ui.ViewModelFactory
 import com.linggash.nutrifruity.ui.detail.FruitDetailActivity
 
 class FruitListActivity : AppCompatActivity() {
