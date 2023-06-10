@@ -5,12 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.linggash.nutrifruity.data.FruitRepository
 import com.linggash.nutrifruity.model.FruitDetailResponse
-import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.runBlocking
-import javax.inject.Inject
 
-@HiltViewModel
-class FruitDetailViewModel @Inject constructor(
+class FruitDetailViewModel (
     private val repository: FruitRepository
 ): ViewModel() {
     private var _fruitDetail = MutableLiveData<FruitDetailResponse>()

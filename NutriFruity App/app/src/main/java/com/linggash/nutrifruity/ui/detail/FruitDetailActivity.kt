@@ -5,9 +5,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.linggash.nutrifruity.databinding.ActivityFruitDetailBinding
 import com.linggash.nutrifruity.ui.list.FruitListActivity
-import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
 class FruitDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFruitDetailBinding

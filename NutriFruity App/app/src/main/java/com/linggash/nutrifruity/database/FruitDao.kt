@@ -1,6 +1,6 @@
 package com.linggash.nutrifruity.database
 
-import androidx.paging.PagingSource
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -9,14 +9,11 @@ import androidx.room.Transaction
 
 @Dao
 interface FruitDao {
+    @Query("SELECT * FROM fruit")
+    fun getAllFruit(): LiveData<List<Fruit>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFruit(fruit: List<Fruit>)
-
-    @Query("SELECT * FROM fruit")
-    fun getAllFruitAsPagingSource(): PagingSource<Int, Fruit>
-
-    @Query("SELECT * FROM fruit")
-    fun getAllFruit(): List<Fruit>
 
     @Query("DELETE FROM fruit")
     suspend fun deleteAll()

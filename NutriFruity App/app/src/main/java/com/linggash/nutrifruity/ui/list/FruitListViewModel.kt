@@ -1,17 +1,33 @@
 package com.linggash.nutrifruity.ui.list
 
-import androidx.lifecycle.LiveData
+import android.content.Context
 import androidx.lifecycle.ViewModel
-import androidx.paging.PagingData
+import androidx.lifecycle.ViewModelProvider
 import com.linggash.nutrifruity.data.FruitRepository
-import com.linggash.nutrifruity.database.Fruit
-import dagger.hilt.android.lifecycle.HiltViewModel
-import javax.inject.Inject
+import com.linggash.nutrifruity.util.Injection
 
-@HiltViewModel
-class FruitListViewModel @Inject constructor(
+class FruitListViewModel  constructor(
     private val repository: FruitRepository
 ): ViewModel(){
+    fun getFruit() = repository.getFruit()
+}
 
-    fun fruit() :LiveData<PagingData<Fruit>> = repository.getFruit()
+class ViewModelFactory private constructor(private val newsRepository: FruitRepository) :
+    ViewModelProvider.NewInstanceFactory() {
+    @Suppress("UNCHECKED_CAST")
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(FruitListViewModel::class.java)) {
+            return FruitListViewModel(newsRepository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
+    }
+
+    companion object {
+        @Volatile
+        private var instance: ViewModelFactory? = null
+        fun getInstance(context: Context): ViewModelFactory =
+            instance ?: synchronized(this) {
+                instance ?: ViewModelFactory(Injection.provideRepository(context))
+            }.also { instance = it }
+    }
 }

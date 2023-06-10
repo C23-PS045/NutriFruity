@@ -16,27 +16,18 @@ import androidx.room.RoomDatabase
     version = 1,
     exportSchema = false
 )
-
 abstract class FruitDatabase: RoomDatabase() {
 
     abstract fun fruitDao(): FruitDao
-
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE: FruitDatabase? = null
-
-        @JvmStatic
-        fun getDatabase(context: Context): FruitDatabase {
-            return INSTANCE ?: synchronized(this){
-                INSTANCE ?: Room.databaseBuilder(
+        private var instance: FruitDatabase? = null
+        fun getDatabase(context: Context): FruitDatabase =
+            instance ?: synchronized(this) {
+                instance ?: Room.databaseBuilder(
                     context.applicationContext,
-                    FruitDatabase::class.java, FRUIT_DATABASE
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-                    .also { INSTANCE = it }
+                    FruitDatabase::class.java, "News.db"
+                ).build()
             }
-        }
-        private const val FRUIT_DATABASE = "fruit_database"
     }
 }
