@@ -38,11 +38,12 @@ fun FruitDetailContent(
     imageUrl: String,
     nutrition: List<Nutrition>? = null,
     benefit: List<Benefit>? = null,
-    color: Color = colorResource(R.color.green_primary)
+    color: Color = colorResource(R.color.green_primary),
+    onClick: () -> Unit
 ){
     val nutritionText = nutrition?.joinToString { it.nutrition }
     Scaffold(
-        topBar = { TopBarDetail(name, modifier, color) },
+        topBar = { TopBarDetail(name, modifier, color, onClick = { onClick() }) },
         containerColor = color,
     ) { innerPadding ->
         Column(
@@ -114,7 +115,8 @@ fun FruitDetailContent(
 fun TopBarDetail(
     name: String,
     modifier: Modifier,
-    color: Color
+    color: Color,
+    onClick: () -> Unit
 ){
     TopAppBar(
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(color),
@@ -131,7 +133,9 @@ fun TopBarDetail(
             )},
         navigationIcon = {
             IconButton(
-                onClick = {}
+                onClick = {
+                    onClick()
+                }
             ) {
                 Icon(
                     tint = Color.White,

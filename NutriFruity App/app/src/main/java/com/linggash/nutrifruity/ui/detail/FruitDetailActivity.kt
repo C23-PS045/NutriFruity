@@ -33,7 +33,11 @@ class FruitDetailActivity : AppCompatActivity() {
 
         binding.detailContent.setContent {
             if (fruit != null) {
-                FruitDetailContent(name = fruit.name, imageUrl = fruit.photoUrl)
+                FruitDetailContent(
+                    name = fruit.name,
+                    imageUrl = fruit.photoUrl,
+                    onClick = {finish()}
+                )
             }
         }
 
@@ -53,6 +57,9 @@ class FruitDetailActivity : AppCompatActivity() {
                                     imageUrl = result.data.fruit.photoUrl,
                                     nutrition = result.data.nutrition,
                                     benefit = result.data.benefit,
+                                    onClick = {
+                                        finish()
+                                    }
                                 )
                             }
                         }
