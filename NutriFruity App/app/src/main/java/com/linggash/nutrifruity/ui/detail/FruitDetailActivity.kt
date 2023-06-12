@@ -7,6 +7,8 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.compose.ui.graphics.Color
+import androidx.core.graphics.toColorInt
 import com.linggash.nutrifruity.data.Result
 import com.linggash.nutrifruity.database.Fruit
 import com.linggash.nutrifruity.databinding.ActivityFruitDetailBinding
@@ -36,7 +38,8 @@ class FruitDetailActivity : AppCompatActivity() {
                 FruitDetailContent(
                     name = fruit.name,
                     imageUrl = fruit.photoUrl,
-                    onClick = {finish()}
+                    onClick = {finish()},
+                    color = Color(fruit.color.replace("0xFF","#").toColorInt())
                 )
             }
         }
@@ -59,7 +62,8 @@ class FruitDetailActivity : AppCompatActivity() {
                                     benefit = result.data.benefit,
                                     onClick = {
                                         finish()
-                                    }
+                                    },
+                                    color = Color(fruit.color.replace("0xFF","#").toColorInt())
                                 )
                             }
                         }

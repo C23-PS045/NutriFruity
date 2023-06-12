@@ -19,6 +19,10 @@ data class Fruit(
     val name: String,
 
     val photoUrl: String,
+
+    val color: String,
+
+    val borderColor: String
 ): Parcelable
 
 @Entity(tableName = "nutrition")

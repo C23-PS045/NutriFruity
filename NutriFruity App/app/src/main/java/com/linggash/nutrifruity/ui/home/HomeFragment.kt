@@ -32,6 +32,7 @@ import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.FragmentHomeBinding
 import com.linggash.nutrifruity.ui.camera.CameraActivity
 import com.linggash.nutrifruity.ui.component.CardComponent
+import com.linggash.nutrifruity.ui.game.GameActivity
 import com.linggash.nutrifruity.ui.list.FruitListActivity
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 import com.linggash.nutrifruity.ui.theme.SpacingStandard
@@ -167,6 +168,8 @@ class HomeFragment : Fragment() {
                     if (spLoaded) {
                         sp.play(soundId, 1f, 1f, 0, 0, 1f)
                     }
+                    val intent = Intent(requireActivity(), GameActivity::class.java)
+                    startActivity(intent)
                 }
 
                 ){

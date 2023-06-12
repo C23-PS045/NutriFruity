@@ -17,4 +17,6 @@
     <string name="benefit">MANFAAT</string>
     <string name="nutrition">NUTRISI</string>
     <string name="back">Kembali</string>
+    <string name="whats_fruit">BUAH APA INI</string>
+    <string name="question_mark">\?</string>
 </resources>

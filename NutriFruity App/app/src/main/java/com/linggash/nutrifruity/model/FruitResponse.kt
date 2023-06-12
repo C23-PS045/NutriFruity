@@ -12,6 +12,12 @@ data class FruitResponse(
 
     @field:SerializedName("gambar")
     val photoUrl: String,
+
+    @field:SerializedName("color")
+    val color: String,
+
+    @field:SerializedName("border_color")
+    val borderColor: String,
 )
 
 data class NutritionResponse(

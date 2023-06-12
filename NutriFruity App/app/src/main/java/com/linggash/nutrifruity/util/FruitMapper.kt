@@ -12,6 +12,8 @@ fun FruitResponse.toFruitData(): Fruit {
         fruitId = id,
         name = name.uppercase(),
         photoUrl = photoUrl,
+        color = color,
+        borderColor = borderColor
     )
 }
 

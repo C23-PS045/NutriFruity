@@ -3,7 +3,9 @@ package com.linggash.nutrifruity.ui.list
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -33,8 +35,8 @@ class FruitListAdapter(
         fun bind(fruit: Fruit) {
             binding.root.setContent {
                 FruitItem(
-                    borderColor = colorResource(R.color.green_secondary),
-                    cardColor = colorResource(R.color.green_primary),
+                    borderColor = Color(fruit.borderColor.replace("0xFF","#").toColorInt()),
+                    cardColor = Color(fruit.color.replace("0xFF","#").toColorInt()),
                     name = fruit.name,
                     image = fruit.photoUrl,
                     onClick = {

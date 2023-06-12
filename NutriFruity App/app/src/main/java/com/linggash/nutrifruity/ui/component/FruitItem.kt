@@ -47,7 +47,7 @@ fun FruitItem(
             Text(
                 text = name,
                 fontFamily = PetitCochon,
-                color = colorResource(R.color.brown_text),
+                color = Color.White,
                 fontSize = 20.sp,
                 textAlign = TextAlign.Center,
             )
