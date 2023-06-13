@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.linggash.nutrifruity.data.FruitRepository
 import com.linggash.nutrifruity.ui.detail.FruitDetailViewModel
+import com.linggash.nutrifruity.ui.game.GameViewModel
 import com.linggash.nutrifruity.ui.list.FruitListViewModel
 import com.linggash.nutrifruity.util.Injection
 
@@ -16,6 +17,8 @@ class ViewModelFactory private constructor(private val fruitRepository: FruitRep
             return FruitListViewModel(fruitRepository) as T
         } else if (modelClass.isAssignableFrom(FruitDetailViewModel::class.java)){
             return FruitDetailViewModel(fruitRepository) as T
+        } else  if (modelClass.isAssignableFrom(GameViewModel::class.java)) {
+            return GameViewModel(fruitRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
     }

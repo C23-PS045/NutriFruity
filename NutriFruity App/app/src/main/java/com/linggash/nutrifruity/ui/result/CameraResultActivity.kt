@@ -28,7 +28,7 @@ class CameraResultActivity : AppCompatActivity() {
 
         if (picture != null) {
             classifyImage(picture)
-            binding.imgFruit.setContent {
+            binding.imgFruitCameraResult.setContent {
                 AsyncImage(
                     model = picture,
                     contentDescription = "Buah"

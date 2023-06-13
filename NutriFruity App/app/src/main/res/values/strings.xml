@@ -13,10 +13,17 @@
     <string name="sound">SOUND</string>
     <string name="take_picture">Ambil Gambar</string>
     <string name="gallery">Gallery</string>
-    <string name="retry">Coba Lagi</string>
+    <string name="retry">COBA LAGI</string>
     <string name="benefit">MANFAAT</string>
     <string name="nutrition">NUTRISI</string>
     <string name="back">Kembali</string>
     <string name="whats_fruit">BUAH APA INI</string>
     <string name="question_mark">\?</string>
+    <string name="fruit">Buah</string>
+    <string name="correct">BENAR !!!!</string>
+    <string name="this_is_fruit">INI ADALAH BUAH</string>
+    <string name="next">LANJUT !!!</string>
+    <string name="wrong">SALAH !!!</string>
+    <string name="success">YAYY.. KAMU TELAH BEARHASIL MENEBAK SEMUA GAMBAR</string>
+    <string name="bakc_to_homepage">KEMBALI KE HALAMAN UTAMA</string>
 </resources>

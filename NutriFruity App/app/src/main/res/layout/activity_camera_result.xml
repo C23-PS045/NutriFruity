@@ -8,7 +8,7 @@
     tools:context=".ui.result.CameraResultActivity">
 
     <androidx.compose.ui.platform.ComposeView
-        android:id="@+id/imgFruit"
+        android:id="@+id/imgFruitCameraResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -25,6 +25,6 @@
         android:textSize="36sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgFruit" />
+        app:layout_constraintTop_toBottomOf="@+id/imgFruitCameraResult" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
