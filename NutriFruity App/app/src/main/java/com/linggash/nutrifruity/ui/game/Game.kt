@@ -8,12 +8,12 @@ object Game {
     fun getChoice(list: List<Fruit>): List<FruitChoice>{
         val shuffledFruit = list.shuffled().take(5)
         val listChoice = shuffledFruit.map { fruit->
-            val choices : MutableList<String> = shuffledFruit
+            var choices : MutableList<String> = shuffledFruit
                 .filterNot { it.name == fruit.name }
                 .take(2)
                 .map { it.name } as MutableList<String>
             choices.add(fruit.name)
-            choices.shuffled()
+            choices = choices.shuffled() as MutableList<String>
             FruitChoice(
                 image = fruit.photoUrl,
                 answer = fruit.name,
