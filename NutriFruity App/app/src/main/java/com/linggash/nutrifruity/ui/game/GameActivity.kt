@@ -121,10 +121,10 @@ class GameActivity : AppCompatActivity() {
             val tvTitle = dialog.findViewById<TextView>(R.id.dialogTitle)
             tvTitle.text = getString(R.string.correct)
             val btn = dialog.findViewById<Button>(R.id.btnDialogNext)
-                btn.setOnClickListener {
-                    dialog.dismiss()
-                    viewModel.next()
-                }
+            btn.setOnClickListener {
+                dialog.dismiss()
+                viewModel.next()
+            }
             val img = dialog.findViewById<ImageView>(R.id.imgFruitDialog)
             Glide
                 .with(this)

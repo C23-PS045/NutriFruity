@@ -25,5 +25,6 @@
     <string name="next">LANJUT !!!</string>
     <string name="wrong">SALAH !!!</string>
     <string name="success">YAYY.. KAMU TELAH BEARHASIL MENEBAK SEMUA GAMBAR</string>
-    <string name="bakc_to_homepage">KEMBALI KE HALAMAN UTAMA</string>
+    <string name="back_to_homepage">KEMBALI KE \n HALAMAN UTAMA</string>
+    <string name="see_nutrition">LIHAT \n NUTRISINYA</string>
 </resources>
