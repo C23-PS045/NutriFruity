@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 fun CardComponent(
     modifier: Modifier = Modifier,
     borderColor: Color,
-    borderSize: Dp = 20.dp,
+    borderSize: Dp = 15.dp,
     cardColor: Color,
     enabled: Boolean = false,
     cardShape: Shape = MaterialTheme.shapes.extraLarge,

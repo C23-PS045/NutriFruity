@@ -24,7 +24,8 @@
     <string name="this_is_fruit">INI ADALAH BUAH</string>
     <string name="next">LANJUT !!!</string>
     <string name="wrong">SALAH !!!</string>
-    <string name="success">YAYY.. KAMU TELAH BEARHASIL MENEBAK SEMUA GAMBAR</string>
-    <string name="back_to_homepage">KEMBALI KE \n HALAMAN UTAMA</string>
-    <string name="see_nutrition">LIHAT \n NUTRISINYA</string>
+    <string name="yay">YAYY..</string>
+    <string name="success">KAMU TELAH BERHASIL MENEBAK SEMUA GAMBAR</string>
+    <string name="finish">SELESAI</string>
+    <string name="see_nutrition">DETAIL</string>
 </resources>

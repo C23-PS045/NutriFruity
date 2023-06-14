@@ -21,6 +21,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.linggash.nutrifruity.R
@@ -29,6 +30,7 @@ import com.linggash.nutrifruity.database.Nutrition
 import com.linggash.nutrifruity.ui.theme.NanumPen
 import com.linggash.nutrifruity.ui.theme.PetitCochon
 import com.linggash.nutrifruity.ui.theme.SpacingLarge
+import com.linggash.nutrifruity.ui.theme.SpacingStandard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -129,7 +131,6 @@ fun TopBarDetail(
                 textAlign = TextAlign.Center,
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(SpacingLarge)
             )},
         navigationIcon = {
             IconButton(
@@ -144,6 +145,6 @@ fun TopBarDetail(
                 )
             }
         },
-        modifier = modifier.padding(SpacingLarge)
+        modifier = modifier.padding(top = 10.dp)
     )
 }

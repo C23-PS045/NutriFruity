@@ -16,7 +16,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -26,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -71,21 +71,11 @@ class HomeFragment : Fragment() {
 
         val modifier = Modifier
         binding.cvTitle.setContent {
-            CardComponent(
-                borderColor = colorResource(R.color.orange_secondary),
-                cardColor = colorResource( R.color.orange_primary) ,
-                cardShape = CircleShape,
-                borderSize = 5.dp
-            ) {
-                Text(
-                    text = getString(R.string.nutrifruity),
-                    color = Color.White,
-                    fontFamily = PetitCochon,
-                    fontSize = 48.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = modifier.fillMaxWidth()
-                )
-            }
+            Image(
+                painter = painterResource(R.drawable.nutrifruity_text),
+                contentDescription = stringResource(R.string.nutrifruity),
+                modifier = modifier.fillMaxWidth()
+            )
         }
         binding.cvCameraCard.setContent {
             CardComponent(
@@ -108,41 +98,42 @@ class HomeFragment : Fragment() {
                             .align(Alignment.BottomEnd)
                             .size(180.dp)
                     )
-                    Image(
-                        painter = painterResource(R.drawable.apple),
-                        contentDescription = "",
+                    Column(
                         modifier = modifier
-                            .align(Alignment.BottomStart)
-                            .padding(15.dp)
-                    )
-                    Row(
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.Start,
-                        modifier = modifier.fillMaxWidth()
+                            .clip(MaterialTheme.shapes.extraLarge)
+                            .padding(horizontal = SpacingStandard)
+                            .padding(top = SpacingStandard)
                     ) {
-                        Column(
-                            modifier = modifier
-                                .clip(MaterialTheme.shapes.extraLarge)
-                                .padding(horizontal = SpacingStandard)
-                                .padding(top = SpacingStandard)
+                        Row(
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.Start,
+                            modifier = modifier.fillMaxWidth()
                         ) {
-                            Text(
-                                text = getString(R.string.fruit_camera),
-                                fontFamily = PetitCochon,
-                                color = Color.White,
-                                fontSize = 30.sp,
-                                textAlign = TextAlign.Start
-                            )
-                            Text(
-                                text = getString(R.string.scan_fruit),
-                                fontFamily = PetitCochon,
-                                color = Color.White,
-                                fontSize = 20.sp,
-                                textAlign = TextAlign.Start
+                            Column {
+                                Text(
+                                    text = getString(R.string.fruit_camera),
+                                    fontFamily = PetitCochon,
+                                    color = Color.White,
+                                    fontSize = 30.sp,
+                                    textAlign = TextAlign.Start
+                                )
+                                Text(
+                                    text = getString(R.string.scan_fruit),
+                                    fontFamily = PetitCochon,
+                                    color = Color.White,
+                                    fontSize = 20.sp,
+                                    textAlign = TextAlign.Start
+                                )
+                            }
+                            Image(
+                                painter = painterResource(R.drawable.ic_camera),
+                                contentDescription = "",
+                                modifier = modifier
+                                    .padding(15.dp)
                             )
                         }
                         Image(
-                            painter = painterResource(R.drawable.ic_camera),
+                            painter = painterResource(R.drawable.apple),
                             contentDescription = "",
                             modifier = modifier
                                 .padding(15.dp)

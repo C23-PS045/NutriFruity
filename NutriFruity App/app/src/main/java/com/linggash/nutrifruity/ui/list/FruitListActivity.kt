@@ -112,7 +112,6 @@ class FruitListActivity : AppCompatActivity() {
                         textAlign = TextAlign.Center,
                         modifier = modifier
                             .fillMaxWidth()
-                            .padding(SpacingLarge)
                             .align(Alignment.Center)
                     )
                 }

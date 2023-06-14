@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/padding_standard"
+    android:padding="@dimen/margin_standard"
     tools:context=".ui.setting.SettingFragment">
 
     <androidx.compose.ui.platform.ComposeView
@@ -32,6 +32,18 @@
             android:paddingHorizontal="@dimen/padding_standard">
 
             <TextView
+                android:id="@+id/tvSetting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/petit_cochon"
+                android:text="@string/setting"
+                android:textAlignment="textStart"
+                android:textColor="@color/brown_text"
+                android:textSize="36sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
                 android:id="@+id/tvMusic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,9 +51,11 @@
                 android:text="@string/music"
                 android:textAlignment="textStart"
                 android:textColor="@color/brown_text"
-                android:textSize="36sp"
+                android:textSize="30sp"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/tvSetting" />
 
             <androidx.compose.ui.platform.ComposeView
                 android:id="@+id/switchMusic"
@@ -59,8 +73,9 @@
                 android:text="@string/sound"
                 android:textAlignment="textStart"
                 android:textColor="@color/brown_text"
-                android:textSize="36sp"
+                android:textSize="30sp"
                 android:layout_marginTop="18dp"
+                android:layout_marginStart="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMusic" />
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="20dp"
     app:cardBackgroundColor="@color/white">
@@ -14,7 +13,7 @@
 
         <TextView
             android:id="@+id/dialogTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/petit_cochon"
             android:text="@string/correct"
@@ -38,7 +37,7 @@
 
         <TextView
             android:id="@+id/tvThis"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/petit_cochon"
             android:textAlignment="center"
@@ -49,7 +48,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgFruitDialog" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDialogNext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,6 +56,7 @@
             android:text="@string/next"
             android:textColor="@color/white"
             android:textSize="30sp"
+            app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

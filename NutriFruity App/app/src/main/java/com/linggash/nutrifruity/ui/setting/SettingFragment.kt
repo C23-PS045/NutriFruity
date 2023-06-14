@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Switch
@@ -12,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -35,22 +38,14 @@ class SettingFragment : Fragment() {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        val modifier = Modifier
+
         binding.cvTitle.setContent {
-            CardComponent(
-                borderColor = colorResource(R.color.orange_secondary),
-                cardColor = colorResource( R.color.orange_primary) ,
-                cardShape = CircleShape,
-                borderSize = 5.dp
-            ) {
-                Text(
-                    text = getString(R.string.setting),
-                    color = Color.White,
-                    fontFamily = PetitCochon,
-                    fontSize = 48.sp,
-                    textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
+            Image(
+                painter = painterResource(R.drawable.nutrifruity_text),
+                contentDescription = stringResource(R.string.nutrifruity),
+                modifier = modifier.fillMaxWidth()
+            )
         }
         binding.switchMusic.setContent {
             Switch(

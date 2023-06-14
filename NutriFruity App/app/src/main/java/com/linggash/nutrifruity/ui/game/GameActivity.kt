@@ -125,6 +125,7 @@ class GameActivity : AppCompatActivity() {
                 dialog.dismiss()
                 viewModel.next()
             }
+            btn.text = getString(R.string.next)
             val img = dialog.findViewById<ImageView>(R.id.imgFruitDialog)
             Glide
                 .with(this)
@@ -133,6 +134,7 @@ class GameActivity : AppCompatActivity() {
                 .override(500)
                 .into(img)
             val tvFruit = dialog.findViewById<TextView>(R.id.tvThis)
+            tvFruit.visibility = View.VISIBLE
             val text = getString(R.string.this_is_fruit) + " " + fruitChoice.answer
             tvFruit.text = text
             dialog.show()
@@ -144,6 +146,8 @@ class GameActivity : AppCompatActivity() {
             btn.setOnClickListener {
                 dialog.dismiss()
             }
+            val tvFruit = dialog.findViewById<TextView>(R.id.tvThis)
+            tvFruit.visibility = View.GONE
             dialog.show()
         }
     }
