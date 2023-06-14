@@ -4,7 +4,7 @@
 
 https://nutrifruity1-qfwlnztfjq-as.a.run.app
 
-## Get All Buah
+## All Fruit
 - URL
   - /buah
 
@@ -110,7 +110,7 @@ https://nutrifruity1-qfwlnztfjq-as.a.run.app
     }
   ]
   ```
-## Get Buah by Id
+## Detail Fruit
 - URL
   - /buah/{id}
 
