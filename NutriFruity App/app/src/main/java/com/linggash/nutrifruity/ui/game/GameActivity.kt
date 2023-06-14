@@ -83,9 +83,9 @@ class GameActivity : AppCompatActivity() {
                             modifier = Modifier.size(200.dp)
                         )
                     }
-                    tvChoice1.text = listChoice[number].listChoice[0]
-                    tvChoice2.text = listChoice[number].listChoice[1]
-                    tvChoice3.text = listChoice[number].listChoice[2]
+                    choice1.text = listChoice[number].listChoice[0]
+                    choice2.text = listChoice[number].listChoice[1]
+                    choice3.text = listChoice[number].listChoice[2]
 
                     choice1.setOnClickListener {
                             onClickChoice(listChoice[number], 0, dialog)
@@ -133,7 +133,8 @@ class GameActivity : AppCompatActivity() {
                 .override(500)
                 .into(img)
             val tvFruit = dialog.findViewById<TextView>(R.id.tvThis)
-            tvFruit.text = getString(R.string.this_is_fruit) + " " + fruitChoice.answer
+            val text = getString(R.string.this_is_fruit) + " " + fruitChoice.answer
+            tvFruit.text = text
             dialog.show()
         } else{
             val tvTitle = dialog.findViewById<TextView>(R.id.dialogTitle)

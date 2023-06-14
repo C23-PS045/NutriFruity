@@ -64,68 +64,49 @@
 
     </com.google.android.material.card.MaterialCardView>
 
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/choice1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/cream_primary"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
         app:layout_constraintBottom_toTopOf="@+id/choice2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cardImage"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
 
-        <TextView
-            android:id="@+id/tvChoice1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/petit_cochon"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="40sp" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/choice2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/cream_primary"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
         app:layout_constraintBottom_toTopOf="@+id/choice3"
         app:layout_constraintEnd_toEndOf="@+id/choice1"
         app:layout_constraintStart_toStartOf="@+id/choice1"
         app:layout_constraintTop_toBottomOf="@+id/choice1"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
 
-        <TextView
-            android:id="@+id/tvChoice2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/petit_cochon"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="40sp" />
-    </com.google.android.material.card.MaterialCardView>
-
-    <com.google.android.material.card.MaterialCardView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/choice3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:soundEffectsEnabled="true"
-        app:cardBackgroundColor="@color/cream_primary"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/choice2"
         app:layout_constraintStart_toStartOf="@+id/choice2"
         app:layout_constraintTop_toBottomOf="@+id/choice2"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge">
-
-        <TextView
-            android:id="@+id/tvChoice3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/petit_cochon"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="40sp" />
-    </com.google.android.material.card.MaterialCardView>
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -133,10 +114,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/choice2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice1"
         tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

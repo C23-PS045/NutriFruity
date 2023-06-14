@@ -50,6 +50,7 @@ class CameraActivity : AppCompatActivity() {
                 val intent = Intent(this@CameraActivity, CameraResultActivity::class.java)
                 intent.putExtra(PICTURE, myFile)
                 startActivity(intent)
+                finish()
             }
         }
     }
@@ -153,6 +154,7 @@ class CameraActivity : AppCompatActivity() {
                     val intent = Intent(this@CameraActivity, CameraResultActivity::class.java)
                     intent.putExtra(PICTURE, photoFile)
                     startActivity(intent)
+                    finish()
                 }
             }
         )

@@ -8,12 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -58,7 +60,6 @@ class HomeFragment : Fragment() {
         sp = SoundPool.Builder()
             .setMaxStreams(10)
             .build()
-
         sp.setOnLoadCompleteListener{ _, _, status ->
             if (status == 0){
                 spLoaded = true
@@ -66,9 +67,9 @@ class HomeFragment : Fragment() {
                 Toast.makeText(requireActivity(), "Gagal load", Toast.LENGTH_SHORT).show()
             }
         }
-
         soundId = sp.load(requireContext(), R.raw.btn, 1)
 
+        val modifier = Modifier
         binding.cvTitle.setContent {
             CardComponent(
                 borderColor = colorResource(R.color.orange_secondary),
@@ -82,7 +83,7 @@ class HomeFragment : Fragment() {
                     fontFamily = PetitCochon,
                     fontSize = 48.sp,
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = modifier.fillMaxWidth()
                 )
             }
         }
@@ -99,27 +100,54 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 }
             ){
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clip(MaterialTheme.shapes.extraLarge)
-                        .padding(horizontal = SpacingStandard)
-                        .padding(top = SpacingStandard)
-                ) {
-                    Text(
-                        text = getString(R.string.fruit_camera),
-                        fontFamily = PetitCochon,
-                        color = colorResource(R.color.brown_text),
-                        fontSize = 24.sp,
-                        textAlign = TextAlign.Start
+                Box(modifier = modifier.fillMaxSize()){
+                    Image(
+                        painter = painterResource(R.drawable.orange),
+                        contentDescription = "",
+                        modifier = modifier
+                            .align(Alignment.BottomEnd)
+                            .size(180.dp)
                     )
-                    Text(
-                        text = getString(R.string.scan_fruit),
-                        fontFamily = PetitCochon,
-                        color = colorResource(R.color.brown_text),
-                        fontSize = 16.sp,
-                        textAlign = TextAlign.Start
+                    Image(
+                        painter = painterResource(R.drawable.apple),
+                        contentDescription = "",
+                        modifier = modifier
+                            .align(Alignment.BottomStart)
+                            .padding(15.dp)
                     )
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Start,
+                        modifier = modifier.fillMaxWidth()
+                    ) {
+                        Column(
+                            modifier = modifier
+                                .clip(MaterialTheme.shapes.extraLarge)
+                                .padding(horizontal = SpacingStandard)
+                                .padding(top = SpacingStandard)
+                        ) {
+                            Text(
+                                text = getString(R.string.fruit_camera),
+                                fontFamily = PetitCochon,
+                                color = Color.White,
+                                fontSize = 30.sp,
+                                textAlign = TextAlign.Start
+                            )
+                            Text(
+                                text = getString(R.string.scan_fruit),
+                                fontFamily = PetitCochon,
+                                color = Color.White,
+                                fontSize = 20.sp,
+                                textAlign = TextAlign.Start
+                            )
+                        }
+                        Image(
+                            painter = painterResource(R.drawable.ic_camera),
+                            contentDescription = "",
+                            modifier = modifier
+                                .padding(15.dp)
+                        )
+                    }
                 }
             }
         }
@@ -135,24 +163,24 @@ class HomeFragment : Fragment() {
                     startActivity(intent)
                 },
                 enabled = true,
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxWidth()
             ){
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize()
                         .padding(SpacingStandard)
                 ) {
                     Image(
                         painter = painterResource(R.drawable.banana),
                         contentDescription = stringResource(R.string.list_fruit),
-                        Modifier.weight(1f)
+                        modifier.weight(1f)
                     )
                     Image(
                         painter = painterResource(R.drawable.list),
                         contentDescription = stringResource(R.string.list_fruit),
-                        Modifier.weight(1f)
+                        modifier.weight(1f)
                     )
                 }
             }
@@ -174,19 +202,14 @@ class HomeFragment : Fragment() {
 
                 ){
                 Box(
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(SpacingStandard)
                         .fillMaxSize()
                 ){
                     Image(
                         painter = painterResource(R.drawable.white_strawberry),
                         contentDescription = stringResource(R.string.game),
-                        modifier = Modifier.align(Alignment.Center)
-                    )
-                    Image(
-                        painter = painterResource(R.drawable.mark_question),
-                        contentDescription = stringResource(R.string.game),
-                        modifier = Modifier.align(Alignment.Center)
+                        modifier = modifier.align(Alignment.Center)
                     )
                 }
             }
