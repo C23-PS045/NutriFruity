@@ -1,6 +1,7 @@
 package com.linggash.nutrifruity.ui.game
 
 import android.app.Dialog
+import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,19 +11,19 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.compose.foundation.layout.size
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.unit.dp
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
-import coil.compose.AsyncImage
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.data.Result
 import com.linggash.nutrifruity.databinding.ActivityGameBinding
 import com.linggash.nutrifruity.model.FruitChoice
 import com.linggash.nutrifruity.ui.ViewModelFactory
+
+val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class GameActivity : AppCompatActivity() {
 
@@ -36,7 +37,7 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        factory = ViewModelFactory.getInstance(this@GameActivity)
+        factory = ViewModelFactory.getInstance(this@GameActivity, dataStore)
         viewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]
 
         viewModel.getFruit().observe(this){ result ->
@@ -75,14 +76,11 @@ class GameActivity : AppCompatActivity() {
                 dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
 
                 binding.apply {
-                    imgFruit.setContent {
-                        AsyncImage(
-                            model = listChoice[number].image,
-                            contentDescription = getString(R.string.fruit),
-                            colorFilter = ColorFilter.tint(Color.White),
-                            modifier = Modifier.size(200.dp)
-                        )
-                    }
+                    Glide.with(this@GameActivity)
+                        .load(listChoice[number].image)
+                        .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                        .into(binding.imgFruit)
+                    binding.imgFruit.setColorFilter(getColor(R.color.white))
                     choice1.text = listChoice[number].listChoice[0]
                     choice2.text = listChoice[number].listChoice[1]
                     choice3.text = listChoice[number].listChoice[2]

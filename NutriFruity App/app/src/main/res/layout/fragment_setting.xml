@@ -7,10 +7,11 @@
     android:padding="@dimen/margin_standard"
     tools:context=".ui.setting.SettingFragment">
 
-    <androidx.compose.ui.platform.ComposeView
+    <ImageView
         android:id="@+id/cvTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
+        android:src="@drawable/nutrifruity_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +58,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvSetting" />
 
-            <androidx.compose.ui.platform.ComposeView
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchMusic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvMusic" />
 
-            <androidx.compose.ui.platform.ComposeView
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switchSound"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

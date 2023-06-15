@@ -12,20 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <androidx.compose.ui.platform.ComposeView
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/captureImage"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        app:icon="@drawable/ic_camera"
+        app:iconGravity="textTop"
+        app:iconTint="@color/white"
+        style="@style/Widget.Material3.Button.IconButton"
+        android:backgroundTint="@color/orange_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
-    <androidx.compose.ui.platform.ComposeView
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Material3.Button.OutlinedButton"
         android:id="@+id/btnGallery"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginBottom="16dp"
+        app:icon="@drawable/ic_gallery"
+        app:iconGravity="textStart"
+        app:iconSize="30dp"
+        app:iconTint="@color/white"
+        app:strokeColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/captureImage"
         app:layout_constraintStart_toStartOf="parent" />

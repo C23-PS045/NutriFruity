@@ -56,10 +56,18 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/padding_standard">
 
-            <androidx.compose.ui.platform.ComposeView
+            <ImageView
                 android:id="@+id/imgFruit"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/guess_fruit"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>

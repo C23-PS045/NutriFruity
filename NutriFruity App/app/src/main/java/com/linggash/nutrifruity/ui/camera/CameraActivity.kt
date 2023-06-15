@@ -16,19 +16,8 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.OutlinedButton
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
 import com.linggash.nutrifruity.ui.result.CameraResultActivity
 import com.linggash.nutrifruity.util.createFile
@@ -100,38 +89,11 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun setView() {
-        binding.captureImage.setContent {
-            OutlinedButton(
-                shape = CircleShape,
-                colors = ButtonDefaults.buttonColors(containerColor = colorResource(R.color.orange_primary)),
-                border = null,
-                contentPadding = PaddingValues(20.dp),
-                onClick = {
-                    takePhoto()
-                }
-            ) {
-                Icon(
-                    tint = Color.White,
-                    painter = painterResource(R.drawable.ic_camera),
-                    contentDescription = getString(R.string.take_picture),
-                )
-            }
+        binding.captureImage.setOnClickListener {
+            takePhoto()
         }
-        binding.btnGallery.setContent {
-            OutlinedButton(
-                shape = CircleShape,
-                border = BorderStroke(5.dp, Color.White),
-                contentPadding = PaddingValues(10.dp),
-                onClick = {
-                    startGallery()
-                }
-            ) {
-                Icon(
-                    tint = Color.White,
-                    painter = painterResource(R.drawable.ic_gallery),
-                    contentDescription = getString(R.string.gallery),
-                )
-            }
+        binding.btnGallery.setOnClickListener {
+            startGallery()
         }
     }
 

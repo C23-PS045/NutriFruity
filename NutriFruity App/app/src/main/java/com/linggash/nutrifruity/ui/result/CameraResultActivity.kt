@@ -5,10 +5,6 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.compose.foundation.layout.height
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImage
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.databinding.ActivityCameraResultBinding
 import com.linggash.nutrifruity.tflite.Classifier
@@ -32,14 +28,7 @@ class CameraResultActivity : AppCompatActivity() {
 
         if (picture != null) {
             classifyImage(picture)
-            binding.imgFruitCameraResult.setContent {
-                AsyncImage(
-                    model = picture,
-                    contentDescription = "Buah",
-                    modifier = Modifier
-                        .height(400.dp)
-                )
-            }
+            binding.imgFruitCameraResult.setImageBitmap(BitmapFactory.decodeFile(picture.path))
         }else {
             Toast.makeText(this@CameraResultActivity, "Gambar tidak ada", Toast.LENGTH_SHORT).show()
         }

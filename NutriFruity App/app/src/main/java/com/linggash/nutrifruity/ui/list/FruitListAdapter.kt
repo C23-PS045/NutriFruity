@@ -1,18 +1,17 @@
 package com.linggash.nutrifruity.ui.list
 
-import android.util.Log
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.colorResource
-import androidx.core.graphics.toColorInt
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.database.Fruit
 import com.linggash.nutrifruity.databinding.FruitListItemBinding
-import com.linggash.nutrifruity.ui.component.FruitItem
+
 
 class FruitListAdapter(
     private val onClick: (Fruit) -> Unit
@@ -25,7 +24,6 @@ class FruitListAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val fruit = getItem(position)
-        Log.d("Buah", fruit.toString())
         holder.bind(fruit)
     }
 
@@ -33,16 +31,17 @@ class FruitListAdapter(
         binding.root
     ) {
         fun bind(fruit: Fruit) {
-            binding.root.setContent {
-                FruitItem(
-                    borderColor = Color(fruit.borderColor.replace("0xFF","#").toColorInt()),
-                    cardColor = Color(fruit.color.replace("0xFF","#").toColorInt()),
-                    name = fruit.name,
-                    image = fruit.photoUrl,
-                    onClick = {
-                        onClick(fruit)
-                    }
-                )
+            binding.tvFruitListItem.text = fruit.name
+            Glide.with(itemView.context)
+                .load(fruit.photoUrl)
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                .into(binding.ivListItem)
+            val borderColor = Color.parseColor(fruit.borderColor.replace("0xFF", "#"))
+            val cardColor = Color.parseColor(fruit.color.replace("0xFF", "#"))
+            binding.cvListItem.setCardBackgroundColor(borderColor)
+            binding.idListItem.setCardBackgroundColor(cardColor)
+            itemView.setOnClickListener {
+                onClick(fruit)
             }
         }
     }

@@ -7,13 +7,49 @@
     android:background="@drawable/background_game"
     tools:context=".ui.list.FruitListActivity">
 
-    <androidx.compose.ui.platform.ComposeView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/orange_primary"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Medium"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp">
+
+            <ImageButton
+                android:id="@+id/btnBack"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_back"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:layout_marginStart="8dp"
+                style="@style/Widget.Material3.Button.IconButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/back" />
+
+            <TextView
+                android:id="@+id/tvList"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/petit_cochon"
+                android:text="@string/list_fruit"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="36sp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvFruit"

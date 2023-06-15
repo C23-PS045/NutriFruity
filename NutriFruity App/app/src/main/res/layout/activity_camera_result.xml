@@ -8,15 +8,18 @@
     android:background="@drawable/background_game"
     tools:context=".ui.result.CameraResultActivity">
 
-    <androidx.compose.ui.platform.ComposeView
+    <ImageView
         android:id="@+id/imgFruitCameraResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
         app:layout_constraintBottom_toTopOf="@+id/tvFruit"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/picture_result" />
 
     <TextView
         android:id="@+id/tvFruit"
