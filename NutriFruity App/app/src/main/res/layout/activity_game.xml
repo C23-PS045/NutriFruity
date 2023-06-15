@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_game"
+    android:paddingHorizontal="@dimen/margin_standard"
+    tools:context=".ui.game.GameActivity">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/petit_cochon"
+        android:text="@string/whats_fruit"
+        android:textAlignment="textStart"
+        android:textColor="@color/brown_text"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toTopOf="@+id/cardImage"
+        app:layout_constraintEnd_toStartOf="@+id/title2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/petit_cochon"
+        android:text="@string/question_mark"
+        android:textAlignment="textEnd"
+        android:textColor="@color/brown_text"
+        android:textSize="64sp"
+        app:layout_constraintBottom_toBottomOf="@+id/dialogTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/dialogTitle"
+        app:layout_constraintTop_toTopOf="@+id/dialogTitle" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"
+        app:cardBackgroundColor="@color/green_primary"
+        app:layout_constraintBottom_toTopOf="@+id/choice1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogTitle">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_standard">
+
+            <ImageView
+                android:id="@+id/imgFruit"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:contentDescription="@string/guess_fruit"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choice1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
+        app:layout_constraintBottom_toTopOf="@+id/choice2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardImage"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choice2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
+        app:layout_constraintBottom_toTopOf="@+id/choice3"
+        app:layout_constraintEnd_toEndOf="@+id/choice1"
+        app:layout_constraintStart_toStartOf="@+id/choice1"
+        app:layout_constraintTop_toBottomOf="@+id/choice1"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choice3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/petit_cochon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        app:backgroundTint="@color/cream_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/choice2"
+        app:layout_constraintStart_toStartOf="@+id/choice2"
+        app:layout_constraintTop_toBottomOf="@+id/choice2"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.ExtraLarge"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/choice2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/choice1"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

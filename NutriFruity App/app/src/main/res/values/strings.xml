@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">NutriFruity</string>
+    <string name="title_home">Home</string>
+    <string name="tittle_setting">Setting</string>
+    <string name="others">LAINNYA</string>
+    <string name="list_fruit">DAFTAR BUAH</string>
+    <string name="game">TEBAK GAMBAR</string>
+    <string name="nutrifruity">NUTRIFRUITY</string>
+    <string name="fruit_camera">KAMERA BUAH</string>
+    <string name="scan_fruit">AYO PINDAI BUAH !!!!</string>
+    <string name="setting">PENGATURAN</string>
+    <string name="music">MUSIC</string>
+    <string name="sound">SOUND</string>
+    <string name="take_picture">Ambil Gambar</string>
+    <string name="gallery">Gallery</string>
+    <string name="retry">COBA LAGI</string>
+    <string name="benefit">MANFAAT</string>
+    <string name="nutrition">NUTRISI :</string>
+    <string name="back">Kembali</string>
+    <string name="whats_fruit">BUAH APA INI</string>
+    <string name="question_mark">\?</string>
+    <string name="fruit">Buah</string>
+    <string name="correct">BENAR !!!!</string>
+    <string name="this_is_fruit">INI ADALAH BUAH</string>
+    <string name="next">LANJUT !!!</string>
+    <string name="wrong">SALAH !!!</string>
+    <string name="yay">YAYY..</string>
+    <string name="success">KAMU TELAH BERHASIL MENEBAK SEMUA GAMBAR</string>
+    <string name="finish">SELESAI</string>
+    <string name="see_nutrition">DETAIL</string>
+    <string name="guess_fruit">Tebak buah ini</string>
+    <string name="picture_result">Hasil Foto</string>
+</resources>
