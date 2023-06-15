@@ -1,30 +1,26 @@
 package com.linggash.nutrifruity.ui.setting
 
-import android.content.Context
 import android.media.SoundPool
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.linggash.nutrifruity.R
+import com.linggash.nutrifruity.data.SettingPreferences
+import com.linggash.nutrifruity.data.dataStore
 import com.linggash.nutrifruity.databinding.FragmentSettingBinding
-import com.linggash.nutrifruity.ui.ViewModelFactory
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+
 class SettingFragment : Fragment() {
 
     private var _binding: FragmentSettingBinding? = null
-
     private val binding get() = _binding!!
 
-    private lateinit var factory: ViewModelFactory
-    private lateinit var viewModel: SettingViewModel
+    private lateinit var pref : SettingPreferences
 
     private lateinit var sp: SoundPool
     private var soundId: Int = 0
@@ -36,25 +32,19 @@ class SettingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingBinding.inflate(inflater, container, false)
+
+        pref = SettingPreferences.getInstance(requireContext().dataStore)
+        var isOn : Boolean
+        runBlocking {
+            isOn = pref.getSoundSetting().first()
+        }
+        setView(isOn)
         return binding.root
     }
 
-
-
     override fun onDestroyView() {
-        super.onDestroyView()
         _binding = null
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        factory = ViewModelFactory.getInstance(requireContext(), requireContext().dataStore)
-        viewModel = ViewModelProvider(this, factory)[SettingViewModel::class.java]
-
-        viewModel.getThemeSettings().observe(requireActivity()){
-            setView(it)
-        }
+        super.onDestroyView()
     }
 
     private fun setView(isOn: Boolean){
@@ -78,7 +68,9 @@ class SettingFragment : Fragment() {
             if (spLoaded) {
                 sp.play(soundId, 1f, 1f, 0, 0, 1f)
             }
-            viewModel.saveThemeSetting(isChecked)
+            runBlocking {
+                pref.saveSoundSetting(isChecked)
+            }
         }
     }
 }

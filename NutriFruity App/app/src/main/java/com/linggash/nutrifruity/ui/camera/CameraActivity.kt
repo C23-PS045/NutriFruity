@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -21,6 +22,7 @@ import androidx.core.content.ContextCompat
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
 import com.linggash.nutrifruity.ui.result.CameraResultActivity
 import com.linggash.nutrifruity.util.createFile
+import com.linggash.nutrifruity.util.rotateFile
 import com.linggash.nutrifruity.util.uriToFile
 
 class CameraActivity : AppCompatActivity() {
@@ -98,6 +100,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     private fun takePhoto() {
+        binding.progressBar.visibility = View.VISIBLE
         val imageCapture = imageCapture ?: return
         val photoFile = createFile(application)
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
@@ -106,6 +109,7 @@ class CameraActivity : AppCompatActivity() {
             ContextCompat.getMainExecutor(this),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onError(exc: ImageCaptureException) {
+                    binding.progressBar.visibility = View.GONE
                     Toast.makeText(
                         this@CameraActivity,
                         "Gagal mengambil gambar.",
@@ -113,10 +117,12 @@ class CameraActivity : AppCompatActivity() {
                     ).show()
                 }
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
+                    rotateFile(photoFile, true)
                     val intent = Intent(this@CameraActivity, CameraResultActivity::class.java)
                     intent.putExtra(PICTURE, photoFile)
                     startActivity(intent)
                     finish()
+                    binding.progressBar.visibility = View.GONE
                 }
             }
         )

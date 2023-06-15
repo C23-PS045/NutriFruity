@@ -1,14 +1,21 @@
 package com.linggash.nutrifruity.ui.result
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.activity.viewModels
 import com.linggash.nutrifruity.R
+import com.linggash.nutrifruity.data.Result
 import com.linggash.nutrifruity.databinding.ActivityCameraResultBinding
 import com.linggash.nutrifruity.tflite.Classifier
+import com.linggash.nutrifruity.ui.ViewModelFactory
 import com.linggash.nutrifruity.ui.camera.CameraActivity
+import com.linggash.nutrifruity.ui.detail.FruitDetailActivity
+import com.linggash.nutrifruity.ui.list.FruitListActivity
 import java.io.File
 
 class CameraResultActivity : AppCompatActivity() {
@@ -36,9 +43,6 @@ class CameraResultActivity : AppCompatActivity() {
         binding.btnResultBack.setOnClickListener {
             finish()
         }
-        binding.btnToDetail.setOnClickListener {
-
-        }
     }
 
     private fun classifyImage(file: File){
@@ -46,8 +50,31 @@ class CameraResultActivity : AppCompatActivity() {
         val classifier = Classifier(assets, mModelPath, mLabelPath, mInputSize)
 
         val result = classifier.recognizeImage(bitmap)
-        val text = getString(R.string.this_is_fruit) + " " + result[0].title
-        binding.tvFruit.text = text
+
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val viewModel: CameraResultViewModel by viewModels { factory }
+        viewModel.getFruitDetail(result[0].title.toLong()).observe(this@CameraResultActivity){ resultFruit ->
+            when (resultFruit){
+                Result.Loading -> {
+                    binding.progressBar.visibility = View.VISIBLE
+                }
+                is Result.Success -> {
+                    binding.progressBar.visibility = View.GONE
+                    val text = getString(R.string.this_is_fruit) + " " + resultFruit.data.fruit.name
+                    binding.tvFruit.text = text
+
+                    binding.btnToDetail.setOnClickListener {
+                        val intent = Intent(this, FruitDetailActivity::class.java)
+                        intent.putExtra(FruitListActivity.ID, resultFruit.data.fruit)
+                        startActivity(intent)
+                        finish()
+                    }
+                }
+                is Result.Error -> {
+                    binding.progressBar.visibility = View.GONE
+                }
+            }
+        }
     }
 
     companion object {

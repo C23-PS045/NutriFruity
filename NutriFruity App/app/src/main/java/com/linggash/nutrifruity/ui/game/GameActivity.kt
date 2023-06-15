@@ -1,7 +1,6 @@
 package com.linggash.nutrifruity.ui.game
 
 import android.app.Dialog
-import android.content.Context
 import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,9 +10,6 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -22,8 +18,6 @@ import com.linggash.nutrifruity.data.Result
 import com.linggash.nutrifruity.databinding.ActivityGameBinding
 import com.linggash.nutrifruity.model.FruitChoice
 import com.linggash.nutrifruity.ui.ViewModelFactory
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class GameActivity : AppCompatActivity() {
 
@@ -37,7 +31,7 @@ class GameActivity : AppCompatActivity() {
         binding = ActivityGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        factory = ViewModelFactory.getInstance(this@GameActivity, dataStore)
+        factory = ViewModelFactory.getInstance(this@GameActivity)
         viewModel = ViewModelProvider(this, factory)[GameViewModel::class.java]
 
         viewModel.getFruit().observe(this){ result ->

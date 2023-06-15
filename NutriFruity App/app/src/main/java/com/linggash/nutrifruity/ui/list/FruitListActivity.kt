@@ -1,24 +1,22 @@
 package com.linggash.nutrifruity.ui.list
 
-import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.data.Result
+import com.linggash.nutrifruity.data.SettingPreferences
+import com.linggash.nutrifruity.data.dataStore
 import com.linggash.nutrifruity.databinding.ActivityFruitListBinding
 import com.linggash.nutrifruity.ui.ViewModelFactory
 import com.linggash.nutrifruity.ui.detail.FruitDetailActivity
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class FruitListActivity : AppCompatActivity() {
 
@@ -36,13 +34,15 @@ class FruitListActivity : AppCompatActivity() {
         binding = ActivityFruitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        factory = ViewModelFactory.getInstance(this, dataStore)
+        factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[FruitListViewModel::class.java]
 
-        viewModel.getThemeSettings().observe(this){
-            setView(it)
+        val pref = SettingPreferences.getInstance(dataStore)
+        var isOn : Boolean
+        runBlocking {
+            isOn = pref.getSoundSetting().first()
         }
-
+        setView(isOn)
     }
 
     private fun setView(isON: Boolean) {

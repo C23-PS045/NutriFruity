@@ -1,6 +1,5 @@
 package com.linggash.nutrifruity.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -8,36 +7,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.linggash.nutrifruity.R
 import com.linggash.nutrifruity.data.SettingPreferences
+import com.linggash.nutrifruity.data.dataStore
 import com.linggash.nutrifruity.databinding.FragmentHomeBinding
-import com.linggash.nutrifruity.ui.ViewModelFactory
 import com.linggash.nutrifruity.ui.camera.CameraActivity
 import com.linggash.nutrifruity.ui.game.GameActivity
 import com.linggash.nutrifruity.ui.list.FruitListActivity
-import com.linggash.nutrifruity.ui.list.dataStore
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var factory: ViewModelFactory
-    private lateinit var viewModel: HomeViewModel
-
     private lateinit var sp: SoundPool
     private var soundId: Int = 0
     private var spLoaded = false
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,9 +43,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        factory = ViewModelFactory.getInstance(requireContext(), requireContext().dataStore)
-        viewModel = ViewModelProvider(requireActivity(), factory)[HomeViewModel::class.java]
 
         var pref : Boolean
         runBlocking {

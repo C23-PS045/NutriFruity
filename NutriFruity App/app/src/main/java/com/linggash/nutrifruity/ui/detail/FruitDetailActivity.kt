@@ -1,6 +1,5 @@
 package com.linggash.nutrifruity.ui.detail
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -8,9 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.preferencesDataStore
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -21,8 +17,6 @@ import com.linggash.nutrifruity.databinding.ActivityFruitDetailBinding
 import com.linggash.nutrifruity.ui.ViewModelFactory
 import com.linggash.nutrifruity.ui.list.FruitListActivity
 
-val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
-
 class FruitDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFruitDetailBinding
@@ -32,7 +26,7 @@ class FruitDetailActivity : AppCompatActivity() {
         binding = ActivityFruitDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val factory: ViewModelFactory = ViewModelFactory.getInstance(this, dataStore)
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
         val viewModel: FruitDetailViewModel by viewModels { factory }
 
         val fruit = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
