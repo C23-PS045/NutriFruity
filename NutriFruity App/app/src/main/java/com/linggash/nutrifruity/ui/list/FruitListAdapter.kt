@@ -34,7 +34,7 @@ class FruitListAdapter(
             binding.tvFruitListItem.text = fruit.name
             Glide.with(itemView.context)
                 .load(fruit.photoUrl)
-                .apply(RequestOptions.placeholderOf(R.drawable.ic_loading).error(R.drawable.ic_error))
+                .apply(RequestOptions.placeholderOf(R.drawable.ic_gallery).error(R.drawable.ic_error))
                 .into(binding.ivListItem)
             val borderColor = Color.parseColor(fruit.borderColor.replace("0xFF", "#"))
             val cardColor = Color.parseColor(fruit.color.replace("0xFF", "#"))

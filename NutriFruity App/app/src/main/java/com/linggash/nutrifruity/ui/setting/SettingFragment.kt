@@ -48,25 +48,25 @@ class SettingFragment : Fragment() {
     }
 
     private fun setView(isOn: Boolean){
-        if (!isOn){
-            sp = SoundPool.Builder()
-                .setMaxStreams(10)
-                .build()
-            sp.setOnLoadCompleteListener{ _, _, status ->
-                if (status == 0){
-                    spLoaded = true
-                }else {
-                    Toast.makeText(requireActivity(), "Gagal load", Toast.LENGTH_SHORT).show()
-                }
-            }
-            soundId = sp.load(requireContext(), R.raw.btn, 1)
-        }else {
-            spLoaded = false
-        }
         binding.switchSound.isChecked = isOn
         binding.switchSound.setOnCheckedChangeListener { _, isChecked ->
-            if (spLoaded) {
-                sp.play(soundId, 1f, 1f, 0, 0, 1f)
+            if (isChecked){
+                sp = SoundPool.Builder()
+                    .setMaxStreams(10)
+                    .build()
+                sp.setOnLoadCompleteListener{ _, _, status ->
+                    if (status == 0){
+                        spLoaded = true
+                    }else {
+                        Toast.makeText(requireActivity(), "Gagal load", Toast.LENGTH_SHORT).show()
+                    }
+                    if (spLoaded) {
+                        sp.play(soundId, 1f, 1f, 0, 0, 1f)
+                    }
+                }
+                soundId = sp.load(requireContext(), R.raw.btn, 1)
+            }else {
+                spLoaded = false
             }
             runBlocking {
                 pref.saveSoundSetting(isChecked)

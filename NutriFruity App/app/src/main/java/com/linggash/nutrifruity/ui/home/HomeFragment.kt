@@ -1,5 +1,6 @@
 package com.linggash.nutrifruity.ui.home
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.media.SoundPool
 import android.os.Bundle
@@ -48,7 +49,21 @@ class HomeFragment : Fragment() {
         runBlocking {
             pref = SettingPreferences.getInstance(requireContext().dataStore).getSoundSetting().first()
         }
+        startAnimation()
         setView(pref)
+    }
+
+    private fun startAnimation() {
+        ObjectAnimator.ofFloat(binding.imgApple, View.ROTATION_X, -20f, 30f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
+        ObjectAnimator.ofFloat(binding.imgOrange, View.ROTATION, -20f, 20f).apply {
+            duration = 3000
+            repeatCount = ObjectAnimator.INFINITE
+            repeatMode = ObjectAnimator.REVERSE
+        }.start()
     }
 
     private fun setView(isOn: Boolean){

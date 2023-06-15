@@ -3,6 +3,7 @@ package com.linggash.nutrifruity.ui.camera
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.SoundPool
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -19,17 +20,27 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.linggash.nutrifruity.R
+import com.linggash.nutrifruity.data.SettingPreferences
+import com.linggash.nutrifruity.data.dataStore
 import com.linggash.nutrifruity.databinding.ActivityCameraBinding
 import com.linggash.nutrifruity.ui.result.CameraResultActivity
 import com.linggash.nutrifruity.util.createFile
 import com.linggash.nutrifruity.util.rotateFile
 import com.linggash.nutrifruity.util.uriToFile
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class CameraActivity : AppCompatActivity() {
     private var imageCapture: ImageCapture? = null
     private var cameraSelector: CameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
 
     private lateinit var binding: ActivityCameraBinding
+
+    private lateinit var sp: SoundPool
+    private var soundId: Int = 0
+    private var soundIdCommon: Int = 0
+    private var spLoaded = false
 
     private val launcherIntentGallery = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -51,8 +62,12 @@ class CameraActivity : AppCompatActivity() {
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setView()
+        var pref : Boolean
+        runBlocking {
+            pref = SettingPreferences.getInstance(dataStore).getSoundSetting().first()
+        }
 
+        setView(pref)
         if (!allPermissionsGranted()) {
             ActivityCompat.requestPermissions(
                 this,
@@ -90,16 +105,36 @@ class CameraActivity : AppCompatActivity() {
         startCamera()
     }
 
-    private fun setView() {
+    private fun setView(isOn : Boolean) {
+        if (isOn){
+            sp = SoundPool.Builder()
+                .setMaxStreams(10)
+                .build()
+            sp.setOnLoadCompleteListener{ _, _, status ->
+                if (status == 0){
+                    spLoaded = true
+                }else {
+                    Toast.makeText(this, "Gagal load", Toast.LENGTH_SHORT).show()
+                }
+            }
+            soundId = sp.load(this, R.raw.camera, 1)
+            soundIdCommon = sp.load(this, R.raw.btn, 1)
+        }
         binding.captureImage.setOnClickListener {
             takePhoto()
         }
         binding.btnGallery.setOnClickListener {
+            if (spLoaded) {
+                sp.play(soundIdCommon, 1f, 1f, 0, 0, 1f)
+            }
             startGallery()
         }
     }
 
     private fun takePhoto() {
+        if (spLoaded) {
+            sp.play(soundId, 1f, 1f, 0, 0, 1f)
+        }
         binding.progressBar.visibility = View.VISIBLE
         val imageCapture = imageCapture ?: return
         val photoFile = createFile(application)
@@ -122,7 +157,6 @@ class CameraActivity : AppCompatActivity() {
                     intent.putExtra(PICTURE, photoFile)
                     startActivity(intent)
                     finish()
-                    binding.progressBar.visibility = View.GONE
                 }
             }
         )

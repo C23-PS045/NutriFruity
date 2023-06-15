@@ -27,12 +27,17 @@ class FruitListActivity : AppCompatActivity() {
 
     private lateinit var sp: SoundPool
     private var soundId: Int = 0
+    private var soundIdBack: Int = 0
     private var spLoaded = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFruitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        sp = SoundPool.Builder()
+            .setMaxStreams(10)
+            .build()
 
         factory = ViewModelFactory.getInstance(this)
         viewModel = ViewModelProvider(this, factory)[FruitListViewModel::class.java]
@@ -45,11 +50,8 @@ class FruitListActivity : AppCompatActivity() {
         setView(isOn)
     }
 
-    private fun setView(isON: Boolean) {
-        if (isON){
-            sp = SoundPool.Builder()
-                .setMaxStreams(10)
-                .build()
+    private fun setView(isOn: Boolean) {
+        if (isOn){
             sp.setOnLoadCompleteListener{ _, _, status ->
                 if (status == 0){
                     spLoaded = true
@@ -58,8 +60,15 @@ class FruitListActivity : AppCompatActivity() {
                 }
             }
             soundId = sp.load(this, R.raw.btn, 1)
+            soundIdBack = sp.load(this, R.raw.back, 1)
         }else{
             spLoaded = false
+        }
+        binding.btnBack.setOnClickListener {
+            if (spLoaded) {
+                sp.play(soundIdBack, 1f, 1f, 0, 0, 1f)
+            }
+            finish()
         }
         val fruitAdapter = FruitListAdapter{
             if (spLoaded) {
