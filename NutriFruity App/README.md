@@ -12,7 +12,7 @@ These are libraries added to this project
 7. Live Data
 8. Navigation
 
-## How Scan System works. 
+## How does the image image classifying work
 
 The image classifying system
 1. You can use camera or you can get picture from gallery. Then the file is processed by TF Lite Model to classify the fruit. The result will shows after that and you can see detail of that fruit by pressing detail button, or you can go back to home page by using finish button
